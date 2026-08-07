@@ -16,7 +16,6 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\Annotations\Route;
 
 class SeoMetadataController extends AbstractController {
@@ -80,17 +79,16 @@ class SeoMetadataController extends AbstractController {
 
       $seoMetadata = $this->seoMetadataRepository->findOneByPackageGuid($packageGuid);
     if (null === $seoMetadata) {
-      throw new NotFoundHttpException('SEO metadata not found!');
+      return new SingleResourceResponse($this->emptySeoMetadataResponse(), new ResponseContext(200));
     }
 
-      $response = [
-          "meta_title" => $seoMetadata->getMetaTitle(),
-          "meta_description" => $seoMetadata->getMetaDescription(),
-          "og_title" => $seoMetadata->getOgTitle(),
-          "og_description" => $seoMetadata->getOgDescription(),
-          "twitter_title" => $seoMetadata->getTwitterTitle(),
-          "twitter_description" => $seoMetadata->getTwitterDescription(),
-      ];
+      $response = $this->emptySeoMetadataResponse();
+      $response["meta_title"] = $seoMetadata->getMetaTitle();
+      $response["meta_description"] = $seoMetadata->getMetaDescription();
+      $response["og_title"] = $seoMetadata->getOgTitle();
+      $response["og_description"] = $seoMetadata->getOgDescription();
+      $response["twitter_title"] = $seoMetadata->getTwitterTitle();
+      $response["twitter_description"] = $seoMetadata->getTwitterDescription();
 
       if ($seoMetadata->getMetaMedia()) {
           $metaImage = $seoMetadata->getMetaMedia()->getImage();
@@ -106,5 +104,16 @@ class SeoMetadataController extends AbstractController {
       }
 
     return new SingleResourceResponse($response, new ResponseContext(200));
+  }
+
+  private function emptySeoMetadataResponse(): array {
+      return [
+          "meta_title" => null,
+          "meta_description" => null,
+          "og_title" => null,
+          "og_description" => null,
+          "twitter_title" => null,
+          "twitter_description" => null,
+      ];
   }
 }
