@@ -175,7 +175,7 @@ MESSAGE,
         $publisherUser->setRoles(['ROLE_INTERNAL_API']);
         $publisherUser->setFirstName(\array_key_exists('first_name', $superdeskUser) ? $superdeskUser['first_name'] : 'Anon.');
         $publisherUser->setLastName(\array_key_exists('last_name', $superdeskUser) ? $superdeskUser['last_name'] : '');
-        $publisherUser->setPassword(password_hash(random_bytes(36), PASSWORD_BCRYPT));
+        $publisherUser->setPassword(password_hash(bin2hex(random_bytes(36)), PASSWORD_BCRYPT));
         $userManager->updateUser($publisherUser);
       }
 
