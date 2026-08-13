@@ -28,11 +28,27 @@ fi
 
 php bin/console doctrine:database:create --if-not-exists
 php bin/console doctrine:migrations:migrate --no-interaction
-php bin/console doctrine:fixtures:load --group=LoadTenantsData --no-interaction
+
+# Base organization + default tenant (123abc). This used to be
+#   doctrine:fixtures:load --group=LoadTenantsData
+# but DoctrineFixturesBundle (and doctrine/data-fixtures) is a require-dev
+# dependency and its `fixtures_type` parameter is only defined in the dev
+# environment, so that command simply does not exist in the baked --no-dev
+# prod/staging image ("There are no commands defined in the 'doctrine:fixtures'
+# namespace" -> exit 1, aborting the whole bootstrap). It only ever worked
+# locally because PUBLISHER_SEED_DEMO=1 runs a runtime `composer install` above,
+# pulling the dev bundle back in. We instead create the exact rows the
+# LoadTenantsData fixture created (organization.yml + tenant.yml) with idempotent
+# raw SQL — the same approach every other seed statement in this script already
+# uses. The demo-only "Other Demo" tenant (456def) is created under
+# PUBLISHER_SEED_DEMO alongside the rest of its config.
+php bin/console doctrine:query:sql "INSERT INTO swp_organization (id, name, code, enabled, created_at) SELECT nextval('swp_organization_id_seq'), 'PesaCheck', '123456', true, NOW() WHERE NOT EXISTS (SELECT 1 FROM swp_organization WHERE code = '123456')"
+php bin/console doctrine:query:sql "INSERT INTO swp_tenant (id, organization_id, name, code, subdomain, domain_name, enabled, amp_enabled, theme_name, created_at) SELECT nextval('swp_tenant_id_seq'), org.id, 'PesaCheck', '123abc', NULL, '${DOMAIN}', true, true, 'swp/default-theme', NOW() FROM swp_organization org WHERE org.code = '123456' AND NOT EXISTS (SELECT 1 FROM swp_tenant WHERE code = '123abc')"
 php bin/console doctrine:query:sql "UPDATE swp_tenant SET name = 'PesaCheck', subdomain = NULL, domain_name = '${DOMAIN}', enabled = true WHERE code = '123abc'"
 
 # Local-only "Other Demo" tenant (456def).
 if [ "$SEED_DEMO" = 1 ]; then
+  php bin/console doctrine:query:sql "INSERT INTO swp_tenant (id, organization_id, name, code, subdomain, domain_name, enabled, amp_enabled, theme_name, created_at) SELECT nextval('swp_tenant_id_seq'), org.id, 'Other Demo', '456def', 'client1', '${DOMAIN}', true, false, 'swp/default-theme', NOW() FROM swp_organization org WHERE org.code = '123456' AND NOT EXISTS (SELECT 1 FROM swp_tenant WHERE code = '456def')"
   php bin/console doctrine:query:sql "UPDATE swp_tenant SET name = 'Other Demo', subdomain = 'client1', domain_name = '${DOMAIN}', enabled = true WHERE code = '456def'"
   php bin/console doctrine:query:sql "UPDATE swp_tenant SET organization_id = (SELECT organization_id FROM swp_tenant WHERE code = '123abc') WHERE code = '456def'"
 fi

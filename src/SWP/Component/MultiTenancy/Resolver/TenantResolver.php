@@ -14,6 +14,7 @@
 
 namespace SWP\Component\MultiTenancy\Resolver;
 
+use Pdp\CannotProcessHost;
 use Pdp\Domain;
 use Pdp\ResolvedDomainName;
 use Pdp\Rules;
@@ -49,8 +50,19 @@ class TenantResolver implements TenantResolverInterface
 
     public function resolve(string $host = null): TenantInterface
     {
-        $domain = $this->extractDomain($host);
-        $subdomain = $this->extractSubdomain($host);
+        try {
+            $domain = $this->extractDomain($host);
+            $subdomain = $this->extractSubdomain($host);
+        } catch (CannotProcessHost $e) {
+            // The Host header is not a parseable domain — e.g. a bare IP address
+            // (which is exactly what ALB/ELB health checks send, since they target
+            // the instance IP, not the tenant hostname) or a garbage Host from a
+            // scanner. The public-suffix parser throws on these before any tenant
+            // lookup happens. That is an unresolvable host, not a server fault, so
+            // surface it as TenantNotFoundException — rendering a 404 like any other
+            // unknown host — instead of letting it bubble up as a 500.
+            throw new TenantNotFoundException((string) $host, $e);
+        }
 
         if (!empty($subdomain)) {
             $tenant = $this->tenantRepository->findOneBySubdomainAndDomain($subdomain, $domain);
