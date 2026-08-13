@@ -114,8 +114,7 @@ class ContentListItemRepository extends BaseRepository implements ContentListIte
             ->leftJoin('a.articleStatistics', 'stats')
             ->leftJoin('a.externalArticle', 'ext')
             ->addSelect('stats', 'ext');
-        //Remove limit for listing only published articles
-        //$queryBuilder->andWhere($queryBuilder->expr()->eq('a.status', $queryBuilder->expr()->literal(ArticleInterface::STATUS_PUBLISHED)));
+        $queryBuilder->andWhere($queryBuilder->expr()->eq('a.status', $queryBuilder->expr()->literal(ArticleInterface::STATUS_PUBLISHED)));
 
         parent::applyCriteria($queryBuilder, $criteria, $alias);
     }
