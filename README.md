@@ -1,4 +1,5 @@
 # Superdesk Web Publisher
+[![CI](https://github.com/CodeForAfrica/superdesk-web-publisher/actions/workflows/ci.yml/badge.svg?branch=pesacheck)](https://github.com/CodeForAfrica/superdesk-web-publisher/actions/workflows/ci.yml)
 
 **Superdesk Publisher - the next generation publishing platform for journalists and newsrooms.**
 
