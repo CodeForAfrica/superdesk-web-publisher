@@ -1,0 +1,51 @@
+# Production websocket image for Superdesk Web Publisher.
+#
+# Runs the GoS websocket server under supervisord. It boots the full Symfony
+# kernel via bin/console, so it needs the same code + vendor + PHP extensions as
+# the php-fpm image. Build context is the REPOSITORY ROOT:
+#
+#   docker build -f etc/docker/supervisor/Dockerfile.prod -t <image> .
+FROM php:8.0-fpm-alpine
+
+# Same extension set as the php-fpm prod image (the kernel needs intl/gd/etc. to
+# boot), plus supervisor to run the long-lived websocket process.
+RUN set -ex \
+    && apk --no-cache add \
+        supervisor \
+        postgresql-dev zlib-dev libxml2-dev curl-dev \
+        freetype libpng libjpeg-turbo \
+        freetype-dev libpng-dev libjpeg-turbo-dev \
+        libintl icu icu-dev git \
+        libmemcached-dev autoconf build-base \
+        rabbitmq-c-dev libzip-dev zip oniguruma-dev libwebp-dev \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
+    && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
+    && docker-php-ext-install pdo pdo_pgsql pgsql opcache sockets exif bcmath \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install zip xml gd mbstring curl \
+    && pecl install memcached && docker-php-ext-enable memcached \
+    && pecl install amqp && docker-php-ext-enable amqp
+
+RUN { \
+      echo 'display_errors=Off'; \
+      echo 'log_errors=On'; \
+      echo 'date.timezone=Africa/Nairobi'; \
+      echo 'memory_limit=256M'; \
+    } > /usr/local/etc/php/conf.d/zz-production.ini
+
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+ENV COMPOSER_ALLOW_SUPERUSER=1 COMPOSER_NO_INTERACTION=1 APP_ENV=prod APP_DEBUG=0
+
+WORKDIR /var/www/publisher
+COPY . /var/www/publisher
+RUN composer install --no-dev --classmap-authoritative --no-scripts --prefer-dist --no-progress \
+    && php bin/console cache:warmup --env=prod --no-debug \
+    && composer clear-cache \
+    && mkdir -p var/cache var/log \
+    && chown -R www-data:www-data var
+
+# supervisor.ini runs: php /var/www/publisher/bin/console gos:websocket:server
+COPY etc/docker/supervisor/supervisor.ini /etc/supervisor.d/supervisor.ini
+
+CMD ["supervisord", "-n"]

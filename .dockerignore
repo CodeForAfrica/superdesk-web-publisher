@@ -1,0 +1,10 @@
+# Keep the build context lean and free of local/dev state. The production images
+# COPY the repository root, so exclude VCS, CI, generated caches, and any local
+# environment overrides (real secrets are injected at runtime, never baked).
+.git
+.github
+var/
+.env.local
+.env.*.local
+docker-compose*.yml
+docker-compose*.yml.dev
