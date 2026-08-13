@@ -22,6 +22,7 @@ RUN set -ex \
         libintl icu icu-dev git \
         libmemcached-dev autoconf build-base \
         rabbitmq-c-dev libzip-dev zip oniguruma-dev libwebp-dev \
+        curl jq \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
@@ -65,5 +66,18 @@ RUN composer install --no-dev --classmap-authoritative --no-scripts --prefer-dis
     && composer clear-cache \
     && mkdir -p var/cache var/log \
     && chown -R www-data:www-data var
+
+# Bake the Publisher bootstrap/seed entrypoints so the image is self-contained
+# (no host bind mounts): the publisher-bootstrap, publisher-content-list-seed,
+# and hasura-bootstrap RunTask one-shots — and the local bootstrap compose
+# services — run these baked copies. content-lists.sh is sourced by the other two
+# via $(dirname "$0"), so it sits beside them in /usr/local/bin. The Hasura
+# metadata is a Publisher artifact, so it lives here too.
+COPY etc/docker/bootstrap/bootstrap-publisher.sh /usr/local/bin/bootstrap-publisher.sh
+COPY etc/docker/bootstrap/seed-content-lists.sh  /usr/local/bin/seed-content-lists.sh
+COPY etc/docker/bootstrap/content-lists.sh       /usr/local/bin/content-lists.sh
+COPY etc/docker/bootstrap/bootstrap-hasura.sh    /usr/local/bin/bootstrap-hasura.sh
+RUN chmod +x /usr/local/bin/bootstrap-publisher.sh /usr/local/bin/seed-content-lists.sh /usr/local/bin/bootstrap-hasura.sh
+COPY etc/docker/bootstrap/hasura_metadata.json   /usr/local/share/hasura/hasura_metadata.json
 
 CMD ["php-fpm"]

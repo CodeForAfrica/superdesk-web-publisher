@@ -1,0 +1,1252 @@
+{
+  "resource_version": 4,
+  "metadata": {
+    "version": 3,
+    "sources": [
+      {
+        "name": "default",
+        "kind": "postgres",
+        "tables": [
+          {
+            "table": {
+              "name": "swp_article",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article_feature_media",
+                "using": {
+                  "foreign_key_constraint_on": "feature_media"
+                }
+              },
+              {
+                "name": "swp_article_metadata",
+                "using": {
+                  "manual_configuration": {
+                    "column_mapping": {
+                      "id": "article_id"
+                    },
+                    "insertion_order": null,
+                    "remote_table": {
+                      "name": "swp_article_metadata",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_article_seo_metadata",
+                "using": {
+                  "foreign_key_constraint_on": "seo_metadata_id"
+                }
+              },
+              {
+                "name": "swp_article_statistics",
+                "using": {
+                  "manual_configuration": {
+                    "column_mapping": {
+                      "id": "article_id"
+                    },
+                    "insertion_order": null,
+                    "remote_table": {
+                      "name": "swp_article_statistics",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_route",
+                "using": {
+                  "foreign_key_constraint_on": "route_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "swp_article_authors",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "article_id",
+                    "table": {
+                      "name": "swp_article_author",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_article_extra",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "article_id",
+                    "table": {
+                      "name": "swp_article_extra",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_article_keywords",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "article_id",
+                    "table": {
+                      "name": "swp_article_keyword",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_article_media",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "article_id",
+                    "table": {
+                      "name": "swp_article_media",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_article_related",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "relates_to_id",
+                    "table": {
+                      "name": "swp_article_related",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_article_relates_to",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "article_id",
+                    "table": {
+                      "name": "swp_article_related",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_slideshows",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "article_id",
+                    "table": {
+                      "name": "swp_slideshow",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "route_id",
+                    "slug",
+                    "body",
+                    "title",
+                    "lead",
+                    "template_name",
+                    "locale",
+                    "status",
+                    "created_at",
+                    "updated_at",
+                    "deleted_at",
+                    "publish_start_date",
+                    "publish_end_date",
+                    "published_at",
+                    "is_publishable",
+                    "metadata",
+                    "tenant_code",
+                    "feature_media",
+                    "code",
+                    "organization_id",
+                    "package_id",
+                    "is_published_fbia",
+                    "paywall_secured",
+                    "comments_count",
+                    "seo_metadata_id",
+                    "media_updated_at",
+                    "apple_news_article_id",
+                    "is_published_to_apple_news"
+                  ],
+                  "filter": {
+                    "status": {
+                      "_eq": "published"
+                    }
+                  },
+                  "allow_aggregations": true
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_author",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": "article_id"
+                }
+              },
+              {
+                "name": "swp_author",
+                "using": {
+                  "foreign_key_constraint_on": "author_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "article_id",
+                    "author_id"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_extra",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": "article_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "article_id",
+                    "field_name",
+                    "discr",
+                    "value",
+                    "embed",
+                    "description"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_keyword",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": "article_id"
+                }
+              },
+              {
+                "name": "swp_keyword",
+                "using": {
+                  "foreign_key_constraint_on": "keyword_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "article_id",
+                    "keyword_id"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_media",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_file",
+                "using": {
+                  "foreign_key_constraint_on": "file_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "swp_image_renditions",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "media_id",
+                    "table": {
+                      "name": "swp_image_rendition",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "article_id",
+                    "file_id",
+                    "image_id",
+                    "key",
+                    "body",
+                    "description",
+                    "located",
+                    "by_line",
+                    "mimetype",
+                    "usage_terms",
+                    "created_at",
+                    "updated_at",
+                    "headline",
+                    "copyright_notice",
+                    "copyright_holder",
+                    "media_type"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_metadata",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": "article_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "swp_article_metadata_places",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "metadata_id",
+                    "table": {
+                      "name": "swp_article_metadata_place",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_article_metadata_services",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "metadata_id",
+                    "table": {
+                      "name": "swp_article_metadata_service",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_article_metadata_subjects",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "metadata_id",
+                    "table": {
+                      "name": "swp_article_metadata_subject",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "article_id",
+                    "profile",
+                    "priority",
+                    "urgency",
+                    "ed_note",
+                    "language",
+                    "genre",
+                    "guid",
+                    "located",
+                    "byline"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_metadata_place",
+              "schema": "public"
+            },
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "metadata_id",
+                    "country",
+                    "world_region",
+                    "state",
+                    "name",
+                    "qgroup",
+                    "qcode"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_metadata_service",
+              "schema": "public"
+            },
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "metadata_id",
+                    "code"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_metadata_subject",
+              "schema": "public"
+            },
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "metadata_id",
+                    "code",
+                    "scheme"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_previous_relative_url",
+              "schema": "public"
+            },
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "relative_url",
+                    "article_id",
+                    "id"
+                  ],
+                  "filter": {}
+                },
+                "comment": ""
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_related",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": "article_id"
+                }
+              },
+              {
+                "name": "swp_related_article",
+                "using": {
+                  "foreign_key_constraint_on": "relates_to_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "article_id",
+                    "created_at",
+                    "deleted_at",
+                    "id",
+                    "relates_to_id",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "deleted_at": {
+                      "_is_null": true
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_seo_media",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_image",
+                "using": {
+                  "foreign_key_constraint_on": "image_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "image_id",
+                    "key",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_seo_metadata",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "seo_media",
+                "using": {
+                  "foreign_key_constraint_on": "seo_meta_media_id"
+                }
+              },
+              {
+                "name": "seo_og_media",
+                "using": {
+                  "foreign_key_constraint_on": "seo_og_media_id"
+                }
+              },
+              {
+                "name": "seo_twitter_media",
+                "using": {
+                  "foreign_key_constraint_on": "seo_twitter_media_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "seo_metadata_id",
+                    "table": {
+                      "name": "swp_article",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "seo_meta_media_id",
+                    "seo_og_media_id",
+                    "seo_twitter_media_id",
+                    "meta_title",
+                    "meta_description",
+                    "og_title",
+                    "og_description",
+                    "twitter_title",
+                    "twitter_description",
+                    "created_at",
+                    "updated_at",
+                    "package_guid"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_article_statistics",
+              "schema": "public"
+            },
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "article_id",
+                    "impressions_number",
+                    "page_views_number",
+                    "tenant_code",
+                    "created_at",
+                    "updated_at",
+                    "internal_click_rate"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_author",
+              "schema": "public"
+            },
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "name",
+                    "role",
+                    "biography",
+                    "job_title",
+                    "avatar_url",
+                    "slug",
+                    "author_media_id",
+                    "twitter",
+                    "facebook",
+                    "instagram"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_author_media",
+              "schema": "public"
+            }
+          },
+          {
+            "table": {
+              "name": "swp_content_list",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "swp_content_list_items",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "content_list_id",
+                    "table": {
+                      "name": "swp_content_list_item",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "cache_life_time",
+                    "content_list_items_updated_at",
+                    "created_at",
+                    "description",
+                    "enabled",
+                    "filters",
+                    "id",
+                    "list_limit",
+                    "name",
+                    "tenant_code",
+                    "type",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "deleted_at": {
+                      "_is_null": true
+                    }
+                  },
+                  "allow_aggregations": true
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_content_list_item",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": "content_id"
+                }
+              },
+              {
+                "name": "swp_content_list",
+                "using": {
+                  "foreign_key_constraint_on": "content_list_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "content_id",
+                    "content_list_id",
+                    "created_at",
+                    "enabled",
+                    "id",
+                    "position",
+                    "sticky",
+                    "sticky_position",
+                    "updated_at"
+                  ],
+                  "filter": {
+                    "deleted_at": {
+                      "_is_null": true
+                    }
+                  },
+                  "allow_aggregations": true
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_file",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "swp_article_media",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "file_id",
+                    "table": {
+                      "name": "swp_article_media",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "asset_id",
+                    "file_extension",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_image",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "swp_image_renditions",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "image_id",
+                    "table": {
+                      "name": "swp_image_rendition",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "asset_id",
+                    "file_extension",
+                    "width",
+                    "height",
+                    "created_at",
+                    "updated_at",
+                    "variants",
+                    "length"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_image_rendition",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article_medium",
+                "using": {
+                  "foreign_key_constraint_on": "media_id"
+                }
+              },
+              {
+                "name": "swp_image",
+                "using": {
+                  "foreign_key_constraint_on": "image_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "image_id",
+                    "media_id",
+                    "width",
+                    "height",
+                    "name"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_keyword",
+              "schema": "public"
+            },
+            "array_relationships": [
+              {
+                "name": "swp_article_keywords",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "keyword_id",
+                    "table": {
+                      "name": "swp_article_keyword",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "name",
+                    "slug"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_menu",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_route",
+                "using": {
+                  "foreign_key_constraint_on": "route_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "children",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "parent_id",
+                    "table": {
+                      "name": "swp_menu",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "root_id",
+                    "parent_id",
+                    "route_id",
+                    "name",
+                    "label",
+                    "link_attributes",
+                    "children_attributes",
+                    "label_attributes",
+                    "uri",
+                    "attributes",
+                    "extras",
+                    "lft",
+                    "rgt",
+                    "level",
+                    "position",
+                    "tenant_code"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_package",
+              "schema": "public"
+            }
+          },
+          {
+            "table": {
+              "name": "swp_package_preview_token",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_route",
+                "using": {
+                  "foreign_key_constraint_on": "route_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "body",
+                    "route_id",
+                    "tenant_code",
+                    "token"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_redirect_route",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_route_target",
+                "using": {
+                  "foreign_key_constraint_on": "route_target_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "condition_expr",
+                    "created_at",
+                    "defaults",
+                    "host",
+                    "id",
+                    "methods",
+                    "options",
+                    "permanent",
+                    "requirements",
+                    "route_name",
+                    "route_source_id",
+                    "route_target_id",
+                    "schemes",
+                    "staticprefix",
+                    "tenant_code",
+                    "updated_at",
+                    "uri",
+                    "variable_pattern"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_route",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": "route_content_id"
+                }
+              },
+              {
+                "name": "swp_route",
+                "using": {
+                  "foreign_key_constraint_on": "parent_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "swp_articles",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "route_id",
+                    "table": {
+                      "name": "swp_article",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_menus",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "route_id",
+                    "table": {
+                      "name": "swp_menu",
+                      "schema": "public"
+                    }
+                  }
+                }
+              },
+              {
+                "name": "swp_routes",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "parent_id",
+                    "table": {
+                      "name": "swp_route",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "articles_template_name",
+                    "articles_updated_at",
+                    "cache_time_in_seconds",
+                    "condition_expr",
+                    "defaults",
+                    "description",
+                    "host",
+                    "id",
+                    "level",
+                    "lft",
+                    "methods",
+                    "name",
+                    "options",
+                    "parent_id",
+                    "paywall_secured",
+                    "position",
+                    "requirements",
+                    "rgt",
+                    "route_content_id",
+                    "schemes",
+                    "slug",
+                    "staticprefix",
+                    "template_name",
+                    "tenant_code",
+                    "type",
+                    "variable_pattern"
+                  ],
+                  "filter": {},
+                  "allow_aggregations": true
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_slideshow",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article",
+                "using": {
+                  "foreign_key_constraint_on": "article_id"
+                }
+              }
+            ],
+            "array_relationships": [
+              {
+                "name": "swp_slideshow_items",
+                "using": {
+                  "foreign_key_constraint_on": {
+                    "column": "slideshow_id",
+                    "table": {
+                      "name": "swp_slideshow_item",
+                      "schema": "public"
+                    }
+                  }
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "article_id",
+                    "code",
+                    "created_at",
+                    "updated_at"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_slideshow_item",
+              "schema": "public"
+            },
+            "object_relationships": [
+              {
+                "name": "swp_article_media",
+                "using": {
+                  "foreign_key_constraint_on": "article_media_id"
+                }
+              }
+            ],
+            "select_permissions": [
+              {
+                "role": "anonymous",
+                "permission": {
+                  "columns": [
+                    "id",
+                    "article_media_id",
+                    "slideshow_id",
+                    "created_at",
+                    "updated_at",
+                    "position"
+                  ],
+                  "filter": {}
+                }
+              }
+            ]
+          },
+          {
+            "table": {
+              "name": "swp_tenant",
+              "schema": "public"
+            }
+          }
+        ],
+        "configuration": {
+          "connection_info": {
+            "database_url": {
+              "from_env": "HASURA_GRAPHQL_DATABASE_URL"
+            },
+            "isolation_level": "read-committed",
+            "pool_settings": {
+              "connection_lifetime": 600,
+              "idle_timeout": 180,
+              "max_connections": 50,
+              "retries": 1
+            },
+            "use_prepared_statements": true
+          }
+        }
+      }
+    ]
+  }
+}
