@@ -6,8 +6,21 @@ set -eu
 # as the publisher-bootstrap one-shot (ECS RunTask) or the local compose service.
 #
 # Environment-driven so the one script is correct everywhere:
-#   SWP_DOMAIN            default tenant's domain_name (localhost locally, the
-#                         real publisher host in staging/prod). Always injected.
+#   SWP_DOMAIN            default tenant's domain_name — the REGISTRABLE domain,
+#                         not the full host. "localhost" locally; in staging/prod
+#                         the host is split by the public-suffix resolver, so a
+#                         host like publisher-staging.pesacheck.org means
+#                         SWP_DOMAIN=pesacheck.org (+ SWP_SUBDOMAIN below).
+#                         Always injected.
+#   SWP_SUBDOMAIN         optional. default tenant's subdomain label. The
+#                         TenantResolver decomposes the request Host into a
+#                         subdomain + registrable domain; when the publisher is
+#                         served on a subdomain (publisher-staging.pesacheck.org
+#                         -> subdomain "publisher-staging", domain "pesacheck.org")
+#                         it looks the tenant up by BOTH, so the row must carry the
+#                         matching subdomain. Unset (empty) -> subdomain NULL, for
+#                         bare-domain hosts like localhost that resolve by domain
+#                         alone.
 #   PUBLISHER_SEED_DEMO   "1" turns on the local-only demo bits — the second
 #                         "Other Demo" tenant (456def) with the full DefaultTheme
 #                         demo data, and a runtime `composer install`. Off (unset)
@@ -19,7 +32,17 @@ set -eu
 . "$(dirname "$0")/content-lists.sh"
 
 DOMAIN="${SWP_DOMAIN:-localhost}"
+SUBDOMAIN="${SWP_SUBDOMAIN:-}"
 SEED_DEMO="${PUBLISHER_SEED_DEMO:-0}"
+
+# SQL literal for the default tenant's subdomain column: a quoted string when
+# SWP_SUBDOMAIN is set, otherwise the SQL NULL keyword (unquoted). Built once here
+# so the INSERT and the reconciling UPDATE below stay in sync.
+if [ -n "$SUBDOMAIN" ]; then
+  SUBDOMAIN_SQL="'${SUBDOMAIN}'"
+else
+  SUBDOMAIN_SQL="NULL"
+fi
 
 # Dev convenience only: the prod image bakes --no-dev vendor at build time.
 if [ "$SEED_DEMO" = 1 ]; then
@@ -43,8 +66,8 @@ php bin/console doctrine:migrations:migrate --no-interaction
 # uses. The demo-only "Other Demo" tenant (456def) is created under
 # PUBLISHER_SEED_DEMO alongside the rest of its config.
 php bin/console doctrine:query:sql "INSERT INTO swp_organization (id, name, code, enabled, created_at) SELECT nextval('swp_organization_id_seq'), 'PesaCheck', '123456', true, NOW() WHERE NOT EXISTS (SELECT 1 FROM swp_organization WHERE code = '123456')"
-php bin/console doctrine:query:sql "INSERT INTO swp_tenant (id, organization_id, name, code, subdomain, domain_name, enabled, amp_enabled, theme_name, created_at) SELECT nextval('swp_tenant_id_seq'), org.id, 'PesaCheck', '123abc', NULL, '${DOMAIN}', true, true, 'swp/default-theme', NOW() FROM swp_organization org WHERE org.code = '123456' AND NOT EXISTS (SELECT 1 FROM swp_tenant WHERE code = '123abc')"
-php bin/console doctrine:query:sql "UPDATE swp_tenant SET name = 'PesaCheck', subdomain = NULL, domain_name = '${DOMAIN}', enabled = true WHERE code = '123abc'"
+php bin/console doctrine:query:sql "INSERT INTO swp_tenant (id, organization_id, name, code, subdomain, domain_name, enabled, amp_enabled, theme_name, created_at) SELECT nextval('swp_tenant_id_seq'), org.id, 'PesaCheck', '123abc', ${SUBDOMAIN_SQL}, '${DOMAIN}', true, true, 'swp/default-theme', NOW() FROM swp_organization org WHERE org.code = '123456' AND NOT EXISTS (SELECT 1 FROM swp_tenant WHERE code = '123abc')"
+php bin/console doctrine:query:sql "UPDATE swp_tenant SET name = 'PesaCheck', subdomain = ${SUBDOMAIN_SQL}, domain_name = '${DOMAIN}', enabled = true WHERE code = '123abc'"
 
 # Local-only "Other Demo" tenant (456def).
 if [ "$SEED_DEMO" = 1 ]; then
