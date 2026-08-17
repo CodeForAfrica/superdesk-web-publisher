@@ -38,4 +38,9 @@ RUN composer install --no-dev --classmap-authoritative --no-scripts --prefer-dis
 FROM nginx:1.27-alpine
 
 COPY --from=public-assets /var/www/publisher/public /var/www/publisher/public
-COPY etc/docker/nginx/default.prod.conf /etc/nginx/conf.d/default.conf
+# Rendered by the stock nginx entrypoint (docker-entrypoint.d/20-envsubst-on-templates.sh):
+# /etc/nginx/templates/*.template -> /etc/nginx/conf.d/. This substitutes
+# ${PUBLISHER_TENANT_HOST} (the app task sets it, with NGINX_ENVSUBST_FILTER=^PUBLISHER_
+# so nginx's own $-variables are left untouched) so the internal-ALB push host is
+# rewritten to the SWP tenant host. See default.prod.conf header.
+COPY etc/docker/nginx/default.prod.conf /etc/nginx/templates/default.conf.template
