@@ -30,7 +30,14 @@ RUN set -ex \
     && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install zip xml gd mbstring curl \
     && pecl install memcached && docker-php-ext-enable memcached \
-    && pecl install amqp && docker-php-ext-enable amqp
+    # Pin php-amqp to the last 1.x. php-amqp 2.x changed AMQPQueue::ack()/nack() to
+    # return void, but symfony/amqp-messenger 5.4 declares ack(): bool and returns
+    # that value directly (Transport/Connection.php), so on 2.x messenger:consume
+    # dies with "ack(): Return value must be of type bool, null returned" (exit 255)
+    # right after handling each message — the async content_push consumer crash-loops
+    # and no swp_article rows are ever committed. 1.11.0 returns bool. (Publishing is
+    # unaffected, which is why the push endpoint worked on 2.x.)
+    && pecl install amqp-1.11.0 && docker-php-ext-enable amqp
 
 # Production PHP settings: errors to the log (never the response), opcache with
 # timestamp validation off (code is immutable in the image), and upload limits
