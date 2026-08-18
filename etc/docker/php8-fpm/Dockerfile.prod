@@ -67,6 +67,31 @@ RUN composer install --no-dev --classmap-authoritative --no-scripts --prefer-dis
     && mkdir -p var/cache var/log \
     && chown -R www-data:www-data var
 
+# Bake the default tenant's theme TEMPLATES into its runtime theme dir so php-fpm
+# can render them. The sylius theme loader resolves a tenant's theme by scanning
+# %kernel.project_dir%/app/themes/<tenantCode>/<themeName> on the LOCAL filesystem
+# (see TenantableConfigurationSourceFactory default `app/themes`); tenant.theme_name
+# lives in shared Postgres, but the theme FILES do not. `swp:theme:install` (run by
+# the publisher-bootstrap RunTask one-shot) writes those files to the throwaway job
+# container's disk, never to these long-running publisher-web containers, so without
+# this bake the tenant has theme_name='swp/default-theme' but no templates and the
+# site renders nothing. Baking makes every replica self-contained and deterministic.
+#
+# Tenant code 123abc and the generatedData strip mirror bootstrap-publisher.sh's bare
+# install (generatedData only drives the install-time routes/menus/articles processor,
+# which bootstrap does via SQL; it is inert at render time, but we drop it to match).
+# NOTE: 123abc is the fixed default-tenant code from bootstrap-publisher.sh; if that
+# changes, change it here too. This bakes templates only — theme ASSETS (styling under
+# public/_themes) are served as static files by the separate nginx image and are a
+# distinct, pre-existing gap (bootstrap's assets:install never reaches nginx either).
+RUN set -eux; \
+    src=src/SWP/Bundle/FixturesBundle/Resources/themes/DefaultTheme; \
+    dest=app/themes/123abc/DefaultTheme; \
+    mkdir -p "$(dirname "$dest")"; \
+    cp -r "$src" "$dest"; \
+    php -r '$f=$argv[1]; $t=json_decode(file_get_contents($f),true); unset($t["generatedData"]); file_put_contents($f, json_encode($t, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE));' "$dest/theme.json"; \
+    chown -R www-data:www-data app/themes
+
 # Bake the Publisher bootstrap/seed entrypoints so the image is self-contained
 # (no host bind mounts): the publisher-bootstrap, publisher-content-list-seed,
 # and hasura-bootstrap RunTask one-shots — and the local bootstrap compose
