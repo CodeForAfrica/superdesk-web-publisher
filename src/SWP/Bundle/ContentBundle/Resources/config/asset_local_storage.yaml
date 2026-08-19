@@ -8,5 +8,13 @@ services:
     arguments:
       - 'uploads'
 
+  # PesaCheck: emit absolute media-host URLs when SWP_MEDIA_HOST is set, falling
+  # back to the local relative URL (localDirectory 'uploads') otherwise. See the
+  # class docblock for why Publisher never serves media itself in this deployment.
+  SWP\Bundle\ContentBundle\Asset\MediaHostAssetUrlGenerator:
+    arguments:
+      - '%env(SWP_MEDIA_HOST)%'
+      - 'uploads'
+
   SWP\Bundle\ContentBundle\Asset\AssetUrlGeneratorInterface:
-    alias: SWP\Bundle\ContentBundle\Asset\LocalAssetUrlGenerator
+    alias: SWP\Bundle\ContentBundle\Asset\MediaHostAssetUrlGenerator

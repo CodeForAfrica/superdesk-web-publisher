@@ -1,5 +1,9 @@
 parameters:
     env(FS_MAIN_ADAPTER): local_adapter
+    # PesaCheck: public media host used by MediaHostAssetUrlGenerator. Empty =
+    # stock local relative URLs (local dev); set (e.g. https://media-staging.pesacheck.org)
+    # to emit absolute /media/<assetId>.<ext> URLs served from Superdesk's S3.
+    env(SWP_MEDIA_HOST): ''
     env(FS_AWS_S3_BUCKET): ''
     env(FS_AWS_S3_PREFIX): ~
     env(FS_AWS_S3_VERSION): 'latest'
