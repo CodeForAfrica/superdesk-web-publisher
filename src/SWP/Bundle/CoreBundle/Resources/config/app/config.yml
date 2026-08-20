@@ -269,7 +269,7 @@ swp_settings:
         use_first_published_as_publish_date:
             type: boolean
             scope: tenant
-            value: false
+            value: true
         override_slug_on_correction:
             type: boolean
             scope: tenant
