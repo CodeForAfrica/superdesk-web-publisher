@@ -1,0 +1,9 @@
+[
+    {"name": "English", "parent": null, "slug": "english", "type": "collection"},
+    {"name": "French", "parent": null, "slug": "french", "type": "collection"},
+    {"name": "Somali", "parent": null, "slug": "somali", "type": "collection"},
+    {"name": "Kiswahili", "parent": null, "slug": "kiswahili", "type": "collection"},
+    {"name": "Amharic", "parent": null, "slug": "amharic", "type": "collection"},
+    {"name": "Afaan Oromo", "parent": null, "slug": "afaan-oromo", "type": "collection"},
+    {"name": "Knowledge", "parent": null, "slug": "knowledge", "type": "content"}
+]

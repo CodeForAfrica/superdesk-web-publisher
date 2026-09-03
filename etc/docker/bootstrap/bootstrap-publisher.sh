@@ -28,8 +28,11 @@ set -eu
 #                         (the prod image already has vendor baked, so composer
 #                         install is a dev convenience only).
 #
-# Homepage content list names are defined once in the shared, sourced config.
-. "$(dirname "$0")/content-lists.sh"
+# The tenant's routes, rules, content lists and menus are tracked as JSON under
+# publisher-config/ (delivered alongside this script — baked into the image, bind
+# mounted locally) and applied by `swp:config:load` near the end of this script.
+# See scripts/publisher-config/ and docs/plans/publisher-config-as-tracked-json.md.
+CONFIG_DIR="$(dirname "$0")/publisher-config"
 
 DOMAIN="${SWP_DOMAIN:-localhost}"
 SUBDOMAIN="${SWP_SUBDOMAIN:-}"
@@ -77,7 +80,8 @@ if [ "$SEED_DEMO" = 1 ]; then
 fi
 php bin/console doctrine:query:sql "UPDATE swp_rule SET name = 'Local Default Tenant Catch-all', description = 'Local bootstrap rule: send every incoming package to the default tenant.', expression = 'true == true', priority = 1, configuration = 'a:1:{s:12:\"destinations\";a:1:{i:0;a:1:{s:6:\"tenant\";s:6:\"123abc\";}}}', tenant_code = NULL, organization_id = (SELECT organization_id FROM swp_tenant WHERE code = '123abc') WHERE tenant_code IS NULL AND (name IN ('default', 'Local Default Tenant Catch-all') OR (expression = 'true == true' AND configuration LIKE '%123abc%'))"
 php bin/console doctrine:query:sql "INSERT INTO swp_rule (id, expression, priority, configuration, tenant_code, organization_id, description, name) SELECT nextval('swp_rule_id_seq'), 'true == true', 1, 'a:1:{s:12:\"destinations\";a:1:{i:0;a:1:{s:6:\"tenant\";s:6:\"123abc\";}}}', NULL, organization_id, 'Local bootstrap rule: send every incoming package to the default tenant.', 'Local Default Tenant Catch-all' FROM swp_tenant WHERE code = '123abc' AND NOT EXISTS (SELECT 1 FROM swp_rule WHERE tenant_code IS NULL AND name = 'Local Default Tenant Catch-all')"
-php bin/console doctrine:query:sql "INSERT INTO swp_content_list (id, name, description, type, cache_life_time, list_limit, filters, enabled, created_at, updated_at, tenant_code) SELECT nextval('swp_content_list_id_seq'), seeded.name, NULL, 'manual', NULL, NULL, 'a:0:{}', true, NOW(), NOW(), '123abc' FROM unnest(ARRAY[${CONTENT_LIST_NAMES_IN}]) AS seeded(name) WHERE NOT EXISTS (SELECT 1 FROM swp_content_list existing WHERE existing.tenant_code = '123abc' AND existing.name = seeded.name)"
+# Content lists, routes, rules and menus for 123abc are seeded from the tracked
+# JSON tree by `swp:config:load` below, after the theme is installed.
 # Install the DefaultTheme for the default tenant WITHOUT any of its demo
 # generated data. swp:theme:install ALWAYS runs the required-data processor, and
 # only ThemeRoutesGenerator even looks at -p/--processGeneratedData — there it
@@ -98,11 +102,15 @@ rm -rf "$(dirname "$bare_theme_dir")"
 if [ "$SEED_DEMO" = 1 ]; then
   php bin/console swp:theme:install 456def src/SWP/Bundle/FixturesBundle/Resources/themes/DefaultTheme/ -f -p
 fi
-php bin/console doctrine:query:sql "INSERT INTO swp_route (host, schemes, methods, defaults, requirements, options, variable_pattern, staticprefix, type, cache_time_in_seconds, name, position, lft, rgt, level, tenant_code, slug, paywall_secured) SELECT '', 'a:0:{}', 'a:0:{}', 'a:1:{s:4:\"slug\";N;}', 'a:1:{s:4:\"slug\";s:16:\"[a-zA-Z0-9*\-_]+\";}', 'a:0:{}', '/{slug}', '/' || seeded.slug, 'collection', 0, seeded.name, base.next_position + seeded.n - 1, base.max_rgt + (seeded.n - 1) * 2 + 1, base.max_rgt + (seeded.n - 1) * 2 + 2, 0, '123abc', seeded.slug, false FROM (SELECT candidate.name, candidate.slug, row_number() OVER (ORDER BY candidate.ord) AS n FROM (VALUES ('English', 'english', 1), ('French', 'french', 2), ('Somali', 'somali', 3), ('Kiswahili', 'kiswahili', 4), ('Amharic', 'amharic', 5), ('Afaan Oromo', 'afaan-oromo', 6)) AS candidate(name, slug, ord) WHERE NOT EXISTS (SELECT 1 FROM swp_route existing WHERE existing.tenant_code = '123abc' AND existing.name = candidate.name)) AS seeded CROSS JOIN (SELECT COALESCE(MAX(rgt), 0) AS max_rgt, COALESCE(MAX(position) + 1, 0) AS next_position FROM swp_route WHERE tenant_code = '123abc') AS base"
-php bin/console doctrine:query:sql "INSERT INTO swp_rule (id, expression, priority, configuration, tenant_code, organization_id, description, name) SELECT nextval('swp_rule_id_seq'), 'article.getLocale() == \"' || lang.code || '\"', 1, 'a:2:{s:5:\"route\";i:' || route.id || ';s:9:\"published\";b:1;}', '123abc', tenant.organization_id, 'Local bootstrap rule: send ' || lang.name || ' articles to the ' || lang.name || ' route.', 'Local ' || lang.name || ' Language Route' FROM (VALUES ('en', 'English'), ('fr', 'French'), ('so', 'Somali'), ('sw', 'Kiswahili'), ('am', 'Amharic'), ('om', 'Afaan Oromo')) AS lang(code, name) JOIN swp_route route ON route.tenant_code = '123abc' AND route.name = lang.name CROSS JOIN (SELECT organization_id FROM swp_tenant WHERE code = '123abc') AS tenant WHERE NOT EXISTS (SELECT 1 FROM swp_rule existing WHERE existing.tenant_code = '123abc' AND existing.name = 'Local ' || lang.name || ' Language Route')"
-php bin/console doctrine:query:sql "INSERT INTO swp_menu (id, root_id, parent_id, route_id, name, label, link_attributes, children_attributes, label_attributes, uri, attributes, extras, lft, rgt, level, position, tenant_code) SELECT nextval('swp_menu_id_seq'), NULL, NULL, NULL, 'mainNavigation', 'Main Navigation', 'a:0:{}', 'a:0:{}', 'a:0:{}', NULL, 'a:0:{}', 'a:0:{}', 1, 2, 0, 0, '123abc' WHERE NOT EXISTS (SELECT 1 FROM swp_menu WHERE tenant_code = '123abc' AND name = 'mainNavigation' AND parent_id IS NULL)"
-php bin/console doctrine:query:sql "UPDATE swp_menu SET root_id = id WHERE tenant_code = '123abc' AND parent_id IS NULL AND root_id IS NULL"
-php bin/console doctrine:query:sql "INSERT INTO swp_menu (id, root_id, parent_id, route_id, name, label, link_attributes, children_attributes, label_attributes, uri, attributes, extras, lft, rgt, level, position, tenant_code) SELECT nextval('swp_menu_id_seq'), root.id, root.id, seeded.route_id, seeded.slug, seeded.name, 'a:0:{}', 'a:0:{}', 'a:0:{}', seeded.uri, 'a:0:{}', 'a:1:{s:6:\"routes\";a:1:{i:0;a:2:{s:5:\"route\";s:' || octet_length(seeded.name) || ':\"' || seeded.name || '\";s:10:\"parameters\";a:0:{}}}}', base.max_rgt + (seeded.n - 1) * 2 + 1, base.max_rgt + (seeded.n - 1) * 2 + 2, 1, base.next_position + seeded.n - 1, '123abc' FROM (SELECT id FROM swp_menu WHERE tenant_code = '123abc' AND name = 'mainNavigation' AND parent_id IS NULL) AS root CROSS JOIN LATERAL (SELECT COALESCE(MAX(rgt), 1) AS max_rgt, COALESCE(MAX(position) + 1, 0) AS next_position FROM swp_menu child WHERE child.tenant_code = '123abc' AND child.parent_id = root.id) AS base CROSS JOIN LATERAL (SELECT r.id AS route_id, r.name, r.slug, r.staticprefix AS uri, row_number() OVER (ORDER BY r.position) AS n FROM swp_route r WHERE r.tenant_code = '123abc' AND r.name IN ('English', 'French', 'Somali', 'Kiswahili', 'Amharic', 'Afaan Oromo') AND NOT EXISTS (SELECT 1 FROM swp_menu item WHERE item.tenant_code = '123abc' AND item.parent_id = root.id AND item.route_id = r.id)) AS seeded"
-php bin/console doctrine:query:sql "UPDATE swp_menu AS root SET rgt = COALESCE((SELECT MAX(child.rgt) FROM swp_menu child WHERE child.root_id = root.id AND child.id <> root.id), 1) + 1 WHERE root.tenant_code = '123abc' AND root.name = 'mainNavigation' AND root.parent_id IS NULL"
+
+# Seed the default tenant's tracked config — routes, language rules, content
+# lists and the whole navigation tree — from publisher-config/. Idempotent, and
+# it reuses SWP's own generators so the Gedmo nested-set (route/menu lft/rgt) and
+# the RouteService boilerplate are maintained by the code that owns them. This
+# replaces the hand-rolled nested-set SQL that used to live here. The
+# organization-scoped catch-all rule above stays put — it is routing infra tied
+# to tenant creation, not tenant content (see the loader's docblock).
+php bin/console swp:config:load 123abc "$CONFIG_DIR"
+
 php bin/console sylius:theme:assets:install
 php bin/console cache:clear

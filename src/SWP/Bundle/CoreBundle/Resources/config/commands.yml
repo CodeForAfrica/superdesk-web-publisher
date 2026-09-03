@@ -18,6 +18,22 @@ services:
         arguments:
             - '@SWP\Bundle\UserBundle\Util\UserManipulator'
 
+    # Explicit wiring: the three theme generators share GeneratorInterface, so
+    # they cannot be autowired by type. See LoadTenantConfigCommand's docblock.
+    SWP\Bundle\CoreBundle\Command\LoadTenantConfigCommand:
+        arguments:
+            - '@swp.repository.tenant'
+            - '@swp_multi_tenancy.tenant_context'
+            - '@swp_core.generator.theme.routes'
+            - '@swp_core.generator.theme.menus'
+            - '@swp_core.generator.theme.content_lists'
+            - '@swp.provider.route'
+            - '@swp.repository.rule'
+            - '@swp.factory.rule'
+            - '@swp_settings.manager.settings'
+        tags:
+            - { name: console.command }
+
     SWP\Bundle\CoreBundle\Command\:
         resource: '../../Command/*'
-        exclude: '../../Command/{CreateUserCommand,ImportUserCommand}.php'
+        exclude: '../../Command/{CreateUserCommand,ImportUserCommand,LoadTenantConfigCommand}.php'

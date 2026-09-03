@@ -102,12 +102,14 @@ RUN set -eux; \
 # Bake the Publisher bootstrap/seed entrypoints so the image is self-contained
 # (no host bind mounts): the publisher-bootstrap, publisher-content-list-seed,
 # and hasura-bootstrap RunTask one-shots — and the local bootstrap compose
-# services — run these baked copies. content-lists.sh is sourced by the other two
-# via $(dirname "$0"), so it sits beside them in /usr/local/bin. The Hasura
-# metadata is a Publisher artifact, so it lives here too.
+# services — run these baked copies. The publisher-config/ tree is read by both
+# bootstrap-publisher.sh (which seeds it) and seed-content-lists.sh (which reads
+# its seed policy) via $(dirname "$0")/publisher-config, so it sits beside them
+# in /usr/local/bin. The Hasura metadata is a Publisher artifact, so it lives
+# here too.
 COPY etc/docker/bootstrap/bootstrap-publisher.sh /usr/local/bin/bootstrap-publisher.sh
 COPY etc/docker/bootstrap/seed-content-lists.sh  /usr/local/bin/seed-content-lists.sh
-COPY etc/docker/bootstrap/content-lists.sh       /usr/local/bin/content-lists.sh
+COPY etc/docker/bootstrap/publisher-config       /usr/local/bin/publisher-config
 COPY etc/docker/bootstrap/bootstrap-hasura.sh    /usr/local/bin/bootstrap-hasura.sh
 RUN chmod +x /usr/local/bin/bootstrap-publisher.sh /usr/local/bin/seed-content-lists.sh /usr/local/bin/bootstrap-hasura.sh
 COPY etc/docker/bootstrap/hasura_metadata.json   /usr/local/share/hasura/hasura_metadata.json
