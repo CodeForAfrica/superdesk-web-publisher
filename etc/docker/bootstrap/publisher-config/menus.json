@@ -1,0 +1,35 @@
+[
+    {
+        "children": [
+            {"children": [{"label": "All fact-checks", "name": "All fact-checks", "route": null, "uri": "/fact-checks"}, {"label": "By Language", "name": "By Language", "route": null, "uri": "/fact-checks?filter=language"}, {"label": "By Topic", "name": "By Topic", "route": null, "uri": "/fact-checks?filter=topic"}, {"label": "Quick Reads", "name": "Quick Reads", "route": null, "uri": "/fact-checks/quick-reads"}, {"label": "Explainers", "name": "Explainers", "route": null, "uri": "/fact-checks/explainers"}, {"label": "Longform", "name": "Longform", "route": null, "uri": "/fact-checks/longform"}, {"label": "By Country", "name": "By Country", "route": null, "uri": "/fact-checks?filter=region"}], "label": "Fact-Checks", "name": "Fact-Checks", "route": null, "uri": "/fact-checks"},
+            {
+                "children": [
+                    {"label": "About Us", "name": "About Us", "route": null, "uri": "/about"},
+                    {"label": "Who We Are", "name": "Who We Are", "route": null, "uri": "/about#our-team"},
+                    {"label": "Our Partners", "name": "Our Partners", "route": null, "uri": "/about/partners"},
+                    {"label": "Funding", "name": "Funding", "route": null, "uri": "/about/funding"},
+                    {"label": "Our Impact", "name": "Our Impact", "route": null, "uri": "/about#our-impact"},
+                    {"label": "FAQs", "name": "FAQs", "route": null, "uri": "/about/faqs"},
+                    {"label": "Methodology", "name": "Methodology", "route": null, "uri": "/about/methodology"},
+                    {"label": "Contact Us", "name": "Contact Us", "route": null, "uri": "/about/contact-us"},
+                    {"label": "Our Ecosystem", "name": "Our Ecosystem", "route": null, "uri": "/about/our-ecosystem"},
+                    {"label": "Principles", "name": "Principles", "route": null, "uri": "/about/principles"},
+                    {"label": "Our Staff + Expertise", "name": "Our Staff + Expertise", "route": null, "uri": "/about#our-team"},
+                    {"label": "Media Centre", "name": "Media Centre", "route": null, "uri": "/about/media-centre"}
+                ],
+                "label": "About Us",
+                "name": "About Us",
+                "route": null,
+                "uri": "/about"
+            },
+            {"label": "Knowledge", "name": "Knowledge", "route": null, "uri": "/knowledge"},
+            {"label": "Tools", "name": "Tools", "route": null, "uri": "/tools"}
+        ],
+        "label": "",
+        "name": "Main Navigation",
+        "route": null,
+        "uri": null
+    },
+    {"children": [{"label": "About PesaCheck", "name": "About PesaCheck", "route": null, "uri": "/about"}, {"label": "Contact Us", "name": "Contact Us", "route": null, "uri": "/about/contact-us"}, {"label": "Funding and Principles", "name": "Funding and Principles", "route": null, "uri": "/about/funding"}, {"label": "Knowledge", "name": "Knowledge", "route": null, "uri": "/knowledge"}, {"label": "Methodology", "name": "Methodology", "route": null, "uri": "/about/methodology"}, {"label": "Tools", "name": "Tools", "route": null, "uri": "/tools"}], "label": "", "name": "Footer Navigation", "route": null, "uri": null},
+    {"children": [{"label": "Privacy policy", "name": "Privacy policy", "route": null, "uri": "/privacy-policy"}, {"label": "Imprint", "name": "Imprint", "route": null, "uri": "/about/contact-us#imprint"}], "label": "", "name": "Footer Legal", "route": null, "uri": null}
+]

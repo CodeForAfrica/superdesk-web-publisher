@@ -1,0 +1,8 @@
+[
+    {"configuration": {"published": true, "route": "Afaan Oromo"}, "description": "Local bootstrap rule: send Afaan Oromo articles to the Afaan Oromo route.", "expression": "article.getLocale() == \"om\"", "name": "Local Afaan Oromo Language Route", "priority": 1, "tenant_code": "123abc"},
+    {"configuration": {"published": true, "route": "Amharic"}, "description": "Local bootstrap rule: send Amharic articles to the Amharic route.", "expression": "article.getLocale() == \"am\"", "name": "Local Amharic Language Route", "priority": 1, "tenant_code": "123abc"},
+    {"configuration": {"published": true, "route": "English"}, "description": "Local bootstrap rule: send English articles to the English route.", "expression": "article.getLocale() == \"en\"", "name": "Local English Language Route", "priority": 1, "tenant_code": "123abc"},
+    {"configuration": {"published": true, "route": "French"}, "description": "Local bootstrap rule: send French articles to the French route.", "expression": "article.getLocale() == \"fr\"", "name": "Local French Language Route", "priority": 1, "tenant_code": "123abc"},
+    {"configuration": {"published": true, "route": "Kiswahili"}, "description": "Local bootstrap rule: send Kiswahili articles to the Kiswahili route.", "expression": "article.getLocale() == \"sw\"", "name": "Local Kiswahili Language Route", "priority": 1, "tenant_code": "123abc"},
+    {"configuration": {"published": true, "route": "Somali"}, "description": "Local bootstrap rule: send Somali articles to the Somali route.", "expression": "article.getLocale() == \"so\"", "name": "Local Somali Language Route", "priority": 1, "tenant_code": "123abc"}
+]

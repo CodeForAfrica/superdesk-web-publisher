@@ -35,9 +35,40 @@ case "$LIMIT" in
   ;;
 esac
 
-# The target list names are defined once in the shared, sourced config, so this
-# fill and the bootstrap that creates the lists always agree on the set.
-. "$(dirname "$0")/content-lists.sh"
+# Which lists to random-fill comes from the tracked config: every content list
+# with "seed": "random" (the homepage lists). The About/Media Centre editorial
+# lists carry "seed": "empty" and are intentionally left for editors to curate,
+# so they are excluded here. bootstrap-publisher.sh creates all of them from the
+# same file, so the two always agree on the set. See publisher-config/ and
+# scripts/publisher-config/.
+CONFIG_DIR="$(dirname "$0")/publisher-config"
+LISTS_JSON="$CONFIG_DIR/content_lists.json"
+[ -f "$LISTS_JSON" ] || { echo "content list config not found: $LISTS_JSON" >&2; exit 1; }
+
+# Build the SQL IN-list of random-fill names: one quoted, comma-joined literal
+# per name (single quotes doubled for SQL). Same shape the old content-lists.sh
+# derived, now sourced from the tracked JSON. Read with `php` (always present in
+# this image) rather than jq (which the dev image does not carry); php prints the
+# names newline-separated and the shell loop does the SQL quoting. IFS is pinned
+# to newline so names containing spaces ("Homepage — Hero") are not word-split.
+CONTENT_LIST_NAMES_IN=""
+_sep=""
+_old_ifs="$IFS"
+IFS='
+'
+for _name in $(php -r '$l=json_decode(file_get_contents($argv[1]),true)?:[];foreach($l as $x){if(($x["seed"]??null)==="random")echo $x["name"],"\n";}' "$LISTS_JSON"); do
+  [ -n "$_name" ] || continue
+  _esc=$(printf '%s' "$_name" | sed "s/'/''/g")
+  CONTENT_LIST_NAMES_IN="${CONTENT_LIST_NAMES_IN}${_sep}'${_esc}'"
+  _sep=", "
+done
+IFS="$_old_ifs"
+unset _sep _name _esc _old_ifs
+
+if [ -z "$CONTENT_LIST_NAMES_IN" ]; then
+  echo "No content lists marked \"seed\": \"random\" in $LISTS_JSON; nothing to fill."
+  exit 0
+fi
 
 echo "Seeding manual homepage content lists for tenant '$TENANT' with up to $LIMIT random published article(s) each."
 

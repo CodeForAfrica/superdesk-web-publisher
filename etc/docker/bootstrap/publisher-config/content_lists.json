@@ -1,0 +1,14 @@
+[
+    {"name": "About — Ecosystem", "seed": "empty", "type": "manual"},
+    {"cacheLifeTime": 0, "name": "About — FAQs", "seed": "empty", "type": "manual"},
+    {"name": "About — Team", "seed": "empty", "type": "manual"},
+    {"name": "Homepage — Hero", "seed": "random", "type": "manual"},
+    {"name": "Homepage — Latest", "seed": "random", "type": "manual"},
+    {"name": "Homepage — Spotlight", "seed": "random", "type": "manual"},
+    {"name": "Homepage — Trending", "seed": "random", "type": "manual"},
+    {"name": "Media Centre — Announcements", "seed": "empty", "type": "manual"},
+    {"name": "Media Centre — In Research", "seed": "empty", "type": "manual"},
+    {"name": "Media Centre — In the News", "seed": "empty", "type": "manual"},
+    {"name": "Media Centre — Spotlight", "seed": "empty", "type": "manual"},
+    {"name": "Page — Knowledge", "seed": "empty", "type": "manual"}
+]
