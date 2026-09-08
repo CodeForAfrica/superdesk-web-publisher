@@ -120,6 +120,13 @@ CROSS JOIN LATERAL (
 ) AS art
 "
 
+# Curated (non-homepage) lists get their exact tracked membership, resolved from
+# each item's stable article GUID. Like the random fill above, this only touches
+# empty lists, so editor curation and re-runs are safe. An item whose GUID has
+# not reached Publisher yet (authored page not published / fact-check not ingested)
+# is skipped and reported, so a partial content load degrades gracefully.
+php bin/console swp:config:seed-list-items "$TENANT" "$CONFIG_DIR"
+
 # Report the resulting sizes so an empty run (ingest not drained yet) is obvious.
 echo "Content list sizes now:"
 php bin/console doctrine:query:sql "SELECT cl.name, count(item.id) AS items
