@@ -348,6 +348,26 @@ def convert_content_lists(rows, summary):
     return out
 
 
+def convert_membership(rows, summary):
+    """Group the curated-list membership projection into an ordered map keyed by
+    list name. content_id is never tracked — only the stable article GUID
+    (swp_article.code). The seeder resolves guid -> local article id at seed time.
+    Test-artifact lists are dropped (same denylist as the list definitions)."""
+    by_list = {}
+    for r in sorted(rows, key=lambda r: (r["list"], r.get("position") or 0)):
+        name = r["list"]
+        if name in CONTENT_LIST_NAME_DENYLIST:
+            continue
+        by_list.setdefault(name, []).append({
+            "guid": r["guid"],
+            "slug": r.get("slug"),
+            "sticky": bool(r.get("sticky")),
+        })
+    summary["membership_lists"] = len(by_list)
+    summary["membership_items"] = sum(len(v) for v in by_list.values())
+    return by_list
+
+
 def convert_settings(rows, summary):
     out = []
     for r in sorted(rows, key=lambda r: (r.get("scope") or "", r["name"])):
@@ -407,6 +427,10 @@ def main(argv=None):
     write_json(dest / "menus.json", convert_menus(menus, route_id_to_name)); summary["written"].append("menus")
     write_json(dest / "content_lists.json", convert_content_lists(lists, summary)); summary["written"].append("content_lists")
     write_json(dest / "settings.json", convert_settings(settings, summary)); summary["written"].append("settings")
+
+    membership = load_table(src, "content_list_membership")
+    write_json(dest / "content_list_items.json", convert_membership(membership, summary))
+    summary["written"].append("content_list_items")
 
     for table, filename in LATENT_TABLES.items():
         rows = load_table(src, table)

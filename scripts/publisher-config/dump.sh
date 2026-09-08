@@ -66,6 +66,20 @@ for t in ${TABLES}; do
     > "\$PKG/publisher-config/${subdir}/\$t.json" 2>/dev/null \
     || echo '[]' > "\$PKG/publisher-config/${subdir}/\$t.json"
 done
+# Curated content-list membership, projected to the STABLE article GUID
+# (swp_article.code) — never the per-instance content_id. Homepage lists are
+# excluded (they are random-filled, not tracked). This is the only place
+# swp_content_list_item is read; the raw table stays deny-listed.
+psql -U "\$PGUSER" -d "\$PGDB" -tAc \
+  "SELECT COALESCE(json_agg(row_to_json(m) ORDER BY m.list, m.position), '[]'::json) FROM (
+     SELECT cl.name AS list, i.position, i.sticky, a.code AS guid, a.slug
+     FROM swp_content_list cl
+     JOIN swp_content_list_item i ON i.content_list_id = cl.id AND i.deleted_at IS NULL
+     JOIN swp_article a ON a.id = i.content_id
+     WHERE cl.name NOT LIKE 'Homepage%'
+   ) m" \
+  > "\$PKG/publisher-config/${subdir}/content_list_membership.json" 2>/dev/null \
+  || echo '[]' > "\$PKG/publisher-config/${subdir}/content_list_membership.json"
 tar czf /tmp/publisher-config.tgz -C "\$PKG" publisher-config
 rm -rf "\$OUT" "\$PKG"
 EOF
