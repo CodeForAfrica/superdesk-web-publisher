@@ -229,7 +229,29 @@ def convert_routes(rows):
         if r.get("description"):
             doc["description"] = r["description"]
         out.append(doc)
-    return out
+    # The loader creates routes in array order and resolves `parent` by name in
+    # the same pass, so a parent MUST precede its children or the child lands
+    # parentless. Staging's position order interleaves them, so re-order into a
+    # stable topological order (roots first, then each level) here.
+    return _order_parents_first(out)
+
+
+def _order_parents_first(routes):
+    by_name = {r["name"]: r for r in routes}
+    ordered, placed = [], set()
+
+    def place(r):
+        if r["name"] in placed:
+            return
+        parent = r.get("parent")
+        if parent and parent in by_name and parent not in placed:
+            place(by_name[parent])
+        placed.add(r["name"])
+        ordered.append(r)
+
+    for r in routes:  # preserve original order among siblings
+        place(r)
+    return ordered
 
 
 def convert_rules(rows, route_id_to_name, summary):
@@ -348,7 +370,8 @@ def convert_settings(rows, summary):
 # Latent config tables: dumped for capture, written only if non-empty. Faithful
 # passthrough (serialized columns left as-is until one actually has data to shape).
 LATENT_TABLES = {
-    "swp_webhook": "webhooks.json",
+    # swp_webhook is intentionally NOT here: the revalidate webhook embeds a
+    # shared secret in its URL, so it is excluded from the dump (see dump.sh).
     "swp_output_channel": "output_channels.json",
     "swp_fbia_feed": "fbia_feeds.json",
     "swp_fbia_page": "fbia_pages.json",

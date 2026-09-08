@@ -36,10 +36,13 @@ REGION="${REGION:-eu-west-1}"
 # volatile columns and resolves FKs, so the dump must keep ids/parent_id/route_id.
 #   reference     : tenant/org — captured for context; NOT seeded (env-driven).
 #   loaded        : route/rule/menu/content_list/settings — the loader seeds these.
-#   latent config : webhook/output_channel/fbia/apple_news/redirect_route — empty
-#                   today, dumped so the first admin change is caught on refresh.
+#   latent config : output_channel/fbia/apple_news/redirect_route — empty today,
+#                   dumped so the first admin change is caught on refresh.
+# swp_webhook is deliberately EXCLUDED: the pesacheck-ui revalidate webhook
+# embeds a shared secret in its URL (?secret=...), which must never enter a
+# tracked file (AGENTS.md §4). Seed it separately with the secret from env/SSM.
 TABLES="swp_organization swp_tenant swp_route swp_rule swp_menu swp_content_list \
-swp_settings swp_webhook swp_output_channel swp_fbia_feed swp_fbia_page \
+swp_settings swp_output_channel swp_fbia_feed swp_fbia_page \
 swp_apple_news_config swp_redirect_route"
 
 log() { printf '>> %s\n' "$*" >&2; }
