@@ -46,10 +46,17 @@ from pathlib import Path
 # `probe-delete-me` is a staging probe leftover.
 CONTENT_LIST_NAME_DENYLIST = {"probe-delete-me"}
 
-# Homepage lists get random-filled by seed-content-lists.sh; everything else is
-# created empty for editors to curate (About/Media Centre editorial collections).
-# A derived default only — override `seed` by hand in the tracked file if needed.
+# Homepage lists get random-filled by seed-content-lists.sh with fresh fact-checks;
+# everything else is created empty for editors to curate (About/Media Centre
+# editorial collections). "Media Centre — In the News" is also fact-check-driven,
+# not authored, so it is random-filled too. A random-fill list's membership is
+# runtime, so it is NOT captured into content_list_items.json on a refresh.
 RANDOM_FILL_PREFIX = "Homepage"
+RANDOM_FILL_NAMES = {"Page — Media Centre — In the News"}
+
+
+def is_random_fill(name):
+    return name.startswith(RANDOM_FILL_PREFIX) or name in RANDOM_FILL_NAMES
 
 # Settings scopes that are runtime per-user state, never tracked.
 SETTINGS_SCOPE_DENYLIST = {"user"}
@@ -334,7 +341,7 @@ def convert_content_lists(rows, summary):
         doc = {
             "name": name,
             "type": r["type"],
-            "seed": "random" if name.startswith(RANDOM_FILL_PREFIX) else "empty",
+            "seed": "random" if is_random_fill(name) else "empty",
         }
         if r.get("description"):
             doc["description"] = r["description"]
@@ -352,11 +359,13 @@ def convert_membership(rows, summary):
     """Group the curated-list membership projection into an ordered map keyed by
     list name. content_id is never tracked — only the stable article GUID
     (swp_article.code). The seeder resolves guid -> local article id at seed time.
-    Test-artifact lists are dropped (same denylist as the list definitions)."""
+    Test-artifact lists are dropped (same denylist as the list definitions).
+    Random-fill lists (homepage, In the News) have runtime membership seeded from
+    fresh fact-checks, so their contents are never captured here."""
     by_list = {}
     for r in sorted(rows, key=lambda r: (r["list"], r.get("position") or 0)):
         name = r["list"]
-        if name in CONTENT_LIST_NAME_DENYLIST:
+        if name in CONTENT_LIST_NAME_DENYLIST or is_random_fill(name):
             continue
         by_list.setdefault(name, []).append({
             "guid": r["guid"],

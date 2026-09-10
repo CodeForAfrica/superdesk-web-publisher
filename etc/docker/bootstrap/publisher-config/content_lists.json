@@ -14,7 +14,7 @@
     {"name": "Page — Media Centre", "seed": "empty", "type": "manual"},
     {"limit": 6, "name": "Page — Media Centre — Announcements", "seed": "empty", "type": "manual"},
     {"limit": 6, "name": "Page — Media Centre — In Research", "seed": "empty", "type": "manual"},
-    {"limit": 6, "name": "Page — Media Centre — In the News", "seed": "empty", "type": "manual"},
+    {"limit": 6, "name": "Page — Media Centre — In the News", "seed": "random", "type": "manual"},
     {"limit": 6, "name": "Page — Media Centre — Spotlight", "seed": "empty", "type": "manual"},
     {"name": "Page — Methodology", "seed": "empty", "type": "manual"},
     {"name": "Page — Our Ecosystem", "seed": "empty", "type": "manual"},

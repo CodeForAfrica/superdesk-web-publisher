@@ -20,13 +20,31 @@
 # so re-running never duplicates items and never clobbers a list an editor has
 # already curated. To re-seed a list, clear it in the Publisher pane first.
 #
+# Each list is filled to its OWN configured size (swp_content_list.list_limit,
+# set from the "limit" field in content_lists.json). SEED_CONTENT_LIST_LIMIT is
+# only the fallback for a list that carries no explicit limit (the homepage
+# lists) — so "Homepage — *" get 10 and "… — In the News" gets its 6.
+#
 # Settings (overridable via env vars):
-#   SEED_CONTENT_LIST_LIMIT   how many articles to put in each list (default: 10)
+#   SEED_CONTENT_LIST_LIMIT   fallback size for lists with no list_limit (default: 10)
 #
 set -eu
 
 LIMIT="${SEED_CONTENT_LIST_LIMIT:-10}"
 TENANT="123abc"
+
+# The homepage lists are for FACT-CHECKS, not the Superdesk-authored static pages
+# (About/FAQ/Team/Ecosystem/Media-Centre/...). Both flow to Publisher and both get
+# a language route, so route is not a discriminator; the profile is. Fact-checks
+# carry the Article content profile, whose ninjs `profile` output-name is "Article"
+# (see base_exchange_formatter `_format_profile` -> `content_types.get_output_name`);
+# static pages carry PageSection/FAQ/TeamMember/EcosystemPartner/Announcement/Event/
+# ResearchCitations. The random fill below restricts to this profile so authored
+# pages never leak onto the homepage. Override only if the fact-check profile's
+# output-name changes. Matched with a text regex (metadata is stored as a JSON
+# string, not jsonb) so an odd row can never abort the whole fill.
+ARTICLE_PROFILE="${HOMEPAGE_ARTICLE_PROFILE:-Article}"
+ARTICLE_PROFILE_RE=$(printf '%s' "$ARTICLE_PROFILE" | sed "s/'/''/g")
 
 case "$LIMIT" in
 '' | *[!0-9]*)
@@ -97,7 +115,7 @@ SELECT
     NOW(),
     NOW()
 FROM (
-    SELECT cl.id
+    SELECT cl.id, cl.list_limit
     FROM swp_content_list cl
     WHERE cl.tenant_code = '${TENANT}'
       AND cl.type = 'manual'
@@ -114,9 +132,10 @@ CROSS JOIN LATERAL (
     WHERE a.tenant_code = '${TENANT}'
       AND a.status = 'published'
       AND a.deleted_at IS NULL
+      AND a.metadata ~ '\"profile\"\\s*:\\s*\"${ARTICLE_PROFILE_RE}\"'
       AND a.id <> tgt.id * -1
     ORDER BY random()
-    LIMIT ${LIMIT}
+    LIMIT COALESCE(tgt.list_limit, ${LIMIT})
 ) AS art
 "
 

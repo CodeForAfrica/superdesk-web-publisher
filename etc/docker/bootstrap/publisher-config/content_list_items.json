@@ -73,10 +73,6 @@
         {"guid": "8d62a9e0-6e63-4d0d-82a2-0bd3bd4cc8e7", "slug": "university-centres", "sticky": false},
         {"guid": "8a4f751f-f2cb-4b3e-921c-b0465fcf7d2f", "slug": "peer-reviewed-journal", "sticky": false}
     ],
-    "Page — Media Centre — In the News": [
-        {"guid": "50c8469c-45aa-4b58-b082-1faa545ee2ce", "slug": "false-this-video-does-not-reveal-raila-odingas-final-message-before-death", "sticky": false},
-        {"guid": "6cdc8815-04b3-4af4-860c-877a95623469", "slug": "faux-cette-photo-ne-montre-pas-la-commune-de-maluku-c3-a0-kinshasa-rdc", "sticky": false}
-    ],
     "Page — Media Centre — Spotlight": [
         {"guid": "a4541056-2a72-4265-a51c-e7a88a3efd60", "slug": "public-finance-data-for-fact-checkers", "sticky": false},
         {"guid": "c10dcb4f-0774-4f58-b399-41cdd96a0afc", "slug": "elecction-verification", "sticky": false},
