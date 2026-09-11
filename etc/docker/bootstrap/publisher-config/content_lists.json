@@ -7,9 +7,14 @@
     {"name": "Page — About — Impact", "seed": "empty", "type": "manual"},
     {"name": "Page — About — Intro Images", "seed": "empty", "type": "manual"},
     {"limit": 5, "name": "Page — About — Team", "seed": "empty", "type": "manual"},
+    {"name": "Page — Contact Us", "seed": "empty", "type": "manual"},
+    {"name": "Page — Contact Us — Locations", "seed": "empty", "type": "manual"},
+    {"name": "Page — Contact Us — WhatsApp", "seed": "empty", "type": "manual"},
     {"name": "Page — FAQs", "seed": "empty", "type": "manual"},
     {"cacheLifeTime": 0, "name": "Page — FAQs — Questions", "seed": "empty", "type": "manual"},
     {"name": "Page — Funding", "seed": "empty", "type": "manual"},
+    {"name": "Page — Imprint", "seed": "empty", "type": "manual"},
+    {"name": "Page — Imprint — Sections", "seed": "empty", "type": "manual"},
     {"name": "Page — Knowledge", "seed": "empty", "type": "manual"},
     {"name": "Page — Media Centre", "seed": "empty", "type": "manual"},
     {"limit": 6, "name": "Page — Media Centre — Announcements", "seed": "empty", "type": "manual"},
@@ -24,6 +29,8 @@
     {"name": "Page — Partners — Allies", "seed": "empty", "type": "manual"},
     {"name": "Page — Partners — Partners", "seed": "empty", "type": "manual"},
     {"name": "Page — Principles", "seed": "empty", "type": "manual"},
+    {"name": "Page — Privacy Policy", "seed": "empty", "type": "manual"},
+    {"name": "Page — Privacy Policy — Sections", "seed": "empty", "type": "manual"},
     {"name": "Page — Tools", "seed": "empty", "type": "manual"},
     {"name": "Page — Tools — Tools", "seed": "empty", "type": "manual"}
 ]

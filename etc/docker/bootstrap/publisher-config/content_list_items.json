@@ -23,6 +23,38 @@
         {"guid": "8a76c655-288e-4191-aa1e-899d4a5ef2b6", "slug": "tewodros-bekele", "sticky": false},
         {"guid": "0beb10fe-1b1d-4122-a8f2-80c815fbf002", "slug": "samuel-adeyemi", "sticky": false}
     ],
+    "Page — Contact Us": [
+        {"guid": "6979da93-c707-453d-abf9-30a82e8ac21e", "slug": "contact-locations", "sticky": false},
+        {"guid": "5069075d-ac73-4ba2-98ac-d0d379c74d9a", "slug": "contact-hq", "sticky": false},
+        {"guid": "76181a2e-807b-45f4-8269-e07b84707d98", "slug": "contact-hero", "sticky": false},
+        {"guid": "d0adf172-0770-4d58-a467-611429ed6fbd", "slug": "contact-whatsapp", "sticky": false},
+        {"guid": "29df3db6-d42d-40ae-8a48-fab93c963ee6", "slug": "contact-licensing", "sticky": false},
+        {"guid": "af0d5fa4-4f5c-43bd-bc82-bc24329d0525", "slug": "contact-imprint", "sticky": false},
+        {"guid": "e5ae3396-0bed-408b-b34a-a5a884a5eafc", "slug": "contact-fact-check", "sticky": false}
+    ],
+    "Page — Contact Us — Locations": [
+        {"guid": "33c76b98-9164-4022-b7c1-465f2d8e0fb3", "slug": "contact-office-benin", "sticky": false},
+        {"guid": "1d5dc559-e19b-439b-b2a3-2d372271171f", "slug": "contact-office-burkina-faso", "sticky": false},
+        {"guid": "cee03d86-95f9-4818-b9d4-1f517358e528", "slug": "contact-office-burundi", "sticky": false},
+        {"guid": "ab5dd457-698c-4e0b-a34c-118306e12912", "slug": "contact-office-cameroon", "sticky": false},
+        {"guid": "88ce3f6f-b687-419f-a213-585b196aced8", "slug": "contact-office-central-african-republic-car", "sticky": false},
+        {"guid": "f5d5d5a1-edec-4d85-a7ca-2bfde244bf06", "slug": "contact-office-cote-divoire", "sticky": false},
+        {"guid": "d1dfc59e-adbe-4769-a331-1add14f9b3ac", "slug": "contact-office-democratic-republic-of-congo-drc", "sticky": false},
+        {"guid": "6c2aa472-59d0-459e-878b-a45e50252d31", "slug": "contact-office-ethiopia", "sticky": false},
+        {"guid": "b23c6af4-a601-4189-9822-7944c3ddb74f", "slug": "contact-office-guinea", "sticky": false},
+        {"guid": "f017ef35-82f7-43fc-9835-8cf0c5a97460", "slug": "contact-office-mali", "sticky": false},
+        {"guid": "3ec29f6f-94a3-4b00-a9a8-09b2bb6533c8", "slug": "contact-office-niger", "sticky": false},
+        {"guid": "8e04eef2-67fe-4b57-afe5-90d080dfd734", "slug": "contact-office-nigeria", "sticky": false},
+        {"guid": "da5235c0-c53a-4105-8b78-da3bf4b0654d", "slug": "contact-office-senegal", "sticky": false},
+        {"guid": "74d8ccef-58ec-4899-9529-a4da51908847", "slug": "contact-office-somalia", "sticky": false},
+        {"guid": "7f6a5daf-42cc-4dd1-a390-d69c212654b7", "slug": "contact-office-south-africa", "sticky": false},
+        {"guid": "3ea73986-e925-4d15-9065-95a268c526cf", "slug": "contact-office-tanzania", "sticky": false},
+        {"guid": "e9b717c7-82bd-4b15-b7b4-f9382ea22ff4", "slug": "contact-office-uganda", "sticky": false}
+    ],
+    "Page — Contact Us — WhatsApp": [
+        {"guid": "907c43ca-7cc5-4815-b9ec-c6aab19e9df6", "slug": "contact-whatsapp-follow-our-channel", "sticky": false},
+        {"guid": "282133a0-2410-4cdb-a5fd-54fd524fda61", "slug": "contact-whatsapp-something-fishy-needs-sleuthing", "sticky": false}
+    ],
     "Page — FAQs": [
         {"guid": "40560aa8-fb36-47f3-bcff-6f2a3cd23481", "slug": "faqs-questions", "sticky": false},
         {"guid": "d03d0cb8-a122-48cf-8000-23655a6e74dd", "slug": "faqs-hero", "sticky": false},
@@ -46,6 +78,16 @@
         {"guid": "d44d8c21-2a3b-4b91-9a35-a8ac66f4dd56", "slug": "funding-editorial-independence", "sticky": false},
         {"guid": "ddca303b-22e6-415d-b81e-332d1b0eacae", "slug": "funding-hero", "sticky": false}
     ],
+    "Page — Imprint": [
+        {"guid": "2446d4e4-6579-4563-8237-0f062be72cb2", "slug": "imprint-hero", "sticky": false},
+        {"guid": "31212306-4df7-4ed8-bd69-0bd3a710489f", "slug": "imprint-sections", "sticky": false}
+    ],
+    "Page — Imprint — Sections": [
+        {"guid": "4cbaedce-8fbf-4ace-8bee-fd58907aed58", "slug": "imprint-owner-of-the-website", "sticky": false},
+        {"guid": "f7eb2ef1-420e-4ada-b72a-a029db0168be", "slug": "imprint-registered-business-address", "sticky": false},
+        {"guid": "d478e8fb-6e07-40b7-8ee4-c523099d119e", "slug": "imprint-contact-information", "sticky": false},
+        {"guid": "0ea599c6-73f5-4f80-8adb-cc1dd246fb5a", "slug": "imprint-company-registration-numbers", "sticky": false}
+    ],
     "Page — Knowledge": [
         {"guid": "89b7310e-7247-4cfc-bafd-b3495a07436b", "slug": "knowledge-hero", "sticky": false},
         {"guid": "7f888ac9-9cf5-4310-a7bd-3df018ecfca9", "slug": "incubator", "sticky": false},
@@ -57,7 +99,7 @@
         {"guid": "ad6991bc-e96b-4a29-ac7b-fbee4e022e0c", "slug": "media-centre-research", "sticky": false},
         {"guid": "26d7f69e-b7cf-472a-9be1-7cc922957030", "slug": "media-centre-news", "sticky": false},
         {"guid": "36d795cb-052b-41be-a454-9247712be8bc", "slug": "media-centre-announcements", "sticky": false},
-        {"guid": "cab03fa7-61a5-4895-9eb1-6a1bc2f31dd0", "slug": "media-centre-events", "sticky": false}
+        {"guid": "c75a0aae-de0e-4036-b456-0a6c486b5f7b", "slug": "media-centre-events", "sticky": false}
     ],
     "Page — Media Centre — Announcements": [
         {"guid": "d0c76a4a-6909-4076-9956-85f87be3c3c8", "slug": "2026-cohort-application", "sticky": false},
@@ -138,6 +180,26 @@
         {"guid": "57540efa-8fd3-4112-9f6b-53460701a83e", "slug": "digital-platforms", "sticky": false},
         {"guid": "e6bc5d31-58e6-4879-802e-3d66b937f4a1", "slug": "international-standards", "sticky": false},
         {"guid": "5dabad77-27ef-479b-9eae-71014b766bc3", "slug": "mistakes-and-corrections", "sticky": false}
+    ],
+    "Page — Privacy Policy": [
+        {"guid": "3808bc2b-066d-4b4a-b21c-b1e68a76c96a", "slug": "privacy-sections", "sticky": false},
+        {"guid": "e5c48ba4-4395-4c8d-b49e-9c70ef6da647", "slug": "privacy-hero", "sticky": false}
+    ],
+    "Page — Privacy Policy — Sections": [
+        {"guid": "cfbb4e33-86e5-48a0-b7d6-5808c9ba4d21", "slug": "privacy-definitions", "sticky": false},
+        {"guid": "0ba5ff3a-2806-4d7f-8a37-c20fa639be94", "slug": "privacy-principles-for-processing", "sticky": false},
+        {"guid": "dd5ff243-c0ec-4249-9805-f082c6e01ead", "slug": "privacy-what-data-we-collect", "sticky": false},
+        {"guid": "473d2769-429d-48f8-bc30-cfdc7e9d272c", "slug": "privacy-how-we-collect-your-data", "sticky": false},
+        {"guid": "ba1920c0-92ad-43e6-96af-631be0e51ebc", "slug": "privacy-how-we-use-your-data", "sticky": false},
+        {"guid": "29546921-05f5-49bf-afcd-344892a003ef", "slug": "privacy-legal-basis", "sticky": false},
+        {"guid": "2861d91b-cef5-47de-90b4-d7f4868ce033", "slug": "privacy-retention", "sticky": false},
+        {"guid": "b1692e47-5e31-43d1-992a-716bdb74d24f", "slug": "privacy-marketing", "sticky": false},
+        {"guid": "5c288a9e-72aa-46f2-b8ed-bb6290097bc7", "slug": "privacy-data-protection-rights", "sticky": false},
+        {"guid": "cf6fe78c-298d-4801-8d7d-7c0986a44dfa", "slug": "privacy-what-are-cookies", "sticky": false},
+        {"guid": "a107ea98-4d41-4f5f-89c7-3b3a24204732", "slug": "privacy-how-we-use-cookies", "sticky": false},
+        {"guid": "69a17264-ff0b-4e51-8d30-c840c90e47a0", "slug": "privacy-types-of-cookies", "sticky": false},
+        {"guid": "7a4f1cf9-1dd0-433a-a069-c36259692e9e", "slug": "privacy-how-to-manage-cookies", "sticky": false},
+        {"guid": "dffc6b12-0085-4593-a015-cded87439134", "slug": "privacy-how-to-contact-us", "sticky": false}
     ],
     "Page — Tools": [
         {"guid": "eaa73441-d5f9-4400-ab21-7c50f024fdc2", "slug": "tools-hero", "sticky": false},

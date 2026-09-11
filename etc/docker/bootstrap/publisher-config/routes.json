@@ -14,5 +14,7 @@
     {"name": "Partners", "parent": "About", "slug": "partners", "type": "content"},
     {"name": "Knowledge", "parent": null, "slug": "knowledge", "type": "content"},
     {"name": "Media Centre", "parent": "About", "slug": "media-centre", "type": "content"},
-    {"name": "Tools", "parent": null, "slug": "tools", "type": "content"}
+    {"name": "Contact Us", "parent": "About", "slug": "contact-us", "type": "content"},
+    {"name": "Tools", "parent": null, "slug": "tools", "type": "content"},
+    {"name": "Privacy Policy", "parent": null, "slug": "privacy-policy", "type": "content"}
 ]
