@@ -1,0 +1,214 @@
+{
+    "Page — About": [
+        {"guid": "380588df-d7a5-44fb-818b-72cf87ba9aaf", "slug": "about-intro", "sticky": false},
+        {"guid": "50adb3bc-5cab-4c37-b353-8da0025f1383", "slug": "about-impact", "sticky": false},
+        {"guid": "559c05ed-fb24-4af7-b5bd-da377a5bc5dc", "slug": "about-team", "sticky": false},
+        {"guid": "818cab6b-2b39-4f91-8d0b-c51b23444ce2", "slug": "about-hero", "sticky": false},
+        {"guid": "84b9ccd5-0ee6-470d-9716-b329d75e2926", "slug": "about-ally-strip", "sticky": false}
+    ],
+    "Page — About — Impact": [
+        {"guid": "54046718-7950-4728-b316-238d489b6fc0", "slug": "impact-18-countries-we-operate-in", "sticky": false},
+        {"guid": "f076da5c-0954-4521-b9c9-0bc8ec5d1eb5", "slug": "impact-8-years-in-operation", "sticky": false},
+        {"guid": "8a60a95f-ec2a-4fe9-be92-ceac514d58aa", "slug": "impact-10-000-fact-checks", "sticky": false},
+        {"guid": "a4164b72-2eec-44e9-b7d7-14624cf8ada0", "slug": "impact-6-publishing-languages", "sticky": false}
+    ],
+    "Page — About — Intro Images": [
+        {"guid": "dbe49a1d-322d-492d-844e-ad85277d8eaa", "slug": "about-intro-image-1", "sticky": false},
+        {"guid": "5f126d8d-e5f4-4849-8be7-4b0c420e9329", "slug": "about-intro-image-2", "sticky": false}
+    ],
+    "Page — About — Team": [
+        {"guid": "db5beecb-a092-4dc1-82f7-33aeeda64a93", "slug": "chiamaka-obi", "sticky": false},
+        {"guid": "34518e4b-6136-401d-9855-a72d28a48077", "slug": "daniel-kiptoo", "sticky": false},
+        {"guid": "fa4a3cb4-3e74-43ad-b7a3-1ba538b99912", "slug": "amina-warsame", "sticky": false},
+        {"guid": "8a76c655-288e-4191-aa1e-899d4a5ef2b6", "slug": "tewodros-bekele", "sticky": false},
+        {"guid": "0beb10fe-1b1d-4122-a8f2-80c815fbf002", "slug": "samuel-adeyemi", "sticky": false}
+    ],
+    "Page — Contact Us": [
+        {"guid": "6979da93-c707-453d-abf9-30a82e8ac21e", "slug": "contact-locations", "sticky": false},
+        {"guid": "5069075d-ac73-4ba2-98ac-d0d379c74d9a", "slug": "contact-hq", "sticky": false},
+        {"guid": "76181a2e-807b-45f4-8269-e07b84707d98", "slug": "contact-hero", "sticky": false},
+        {"guid": "d0adf172-0770-4d58-a467-611429ed6fbd", "slug": "contact-whatsapp", "sticky": false},
+        {"guid": "29df3db6-d42d-40ae-8a48-fab93c963ee6", "slug": "contact-licensing", "sticky": false},
+        {"guid": "af0d5fa4-4f5c-43bd-bc82-bc24329d0525", "slug": "contact-imprint", "sticky": false},
+        {"guid": "e5ae3396-0bed-408b-b34a-a5a884a5eafc", "slug": "contact-fact-check", "sticky": false}
+    ],
+    "Page — Contact Us — Locations": [
+        {"guid": "33c76b98-9164-4022-b7c1-465f2d8e0fb3", "slug": "contact-office-benin", "sticky": false},
+        {"guid": "1d5dc559-e19b-439b-b2a3-2d372271171f", "slug": "contact-office-burkina-faso", "sticky": false},
+        {"guid": "cee03d86-95f9-4818-b9d4-1f517358e528", "slug": "contact-office-burundi", "sticky": false},
+        {"guid": "ab5dd457-698c-4e0b-a34c-118306e12912", "slug": "contact-office-cameroon", "sticky": false},
+        {"guid": "88ce3f6f-b687-419f-a213-585b196aced8", "slug": "contact-office-central-african-republic-car", "sticky": false},
+        {"guid": "f5d5d5a1-edec-4d85-a7ca-2bfde244bf06", "slug": "contact-office-cote-divoire", "sticky": false},
+        {"guid": "d1dfc59e-adbe-4769-a331-1add14f9b3ac", "slug": "contact-office-democratic-republic-of-congo-drc", "sticky": false},
+        {"guid": "6c2aa472-59d0-459e-878b-a45e50252d31", "slug": "contact-office-ethiopia", "sticky": false},
+        {"guid": "b23c6af4-a601-4189-9822-7944c3ddb74f", "slug": "contact-office-guinea", "sticky": false},
+        {"guid": "f017ef35-82f7-43fc-9835-8cf0c5a97460", "slug": "contact-office-mali", "sticky": false},
+        {"guid": "3ec29f6f-94a3-4b00-a9a8-09b2bb6533c8", "slug": "contact-office-niger", "sticky": false},
+        {"guid": "8e04eef2-67fe-4b57-afe5-90d080dfd734", "slug": "contact-office-nigeria", "sticky": false},
+        {"guid": "da5235c0-c53a-4105-8b78-da3bf4b0654d", "slug": "contact-office-senegal", "sticky": false},
+        {"guid": "74d8ccef-58ec-4899-9529-a4da51908847", "slug": "contact-office-somalia", "sticky": false},
+        {"guid": "7f6a5daf-42cc-4dd1-a390-d69c212654b7", "slug": "contact-office-south-africa", "sticky": false},
+        {"guid": "3ea73986-e925-4d15-9065-95a268c526cf", "slug": "contact-office-tanzania", "sticky": false},
+        {"guid": "e9b717c7-82bd-4b15-b7b4-f9382ea22ff4", "slug": "contact-office-uganda", "sticky": false}
+    ],
+    "Page — Contact Us — WhatsApp": [
+        {"guid": "907c43ca-7cc5-4815-b9ec-c6aab19e9df6", "slug": "contact-whatsapp-follow-our-channel", "sticky": false},
+        {"guid": "282133a0-2410-4cdb-a5fd-54fd524fda61", "slug": "contact-whatsapp-something-fishy-needs-sleuthing", "sticky": false}
+    ],
+    "Page — FAQs": [
+        {"guid": "40560aa8-fb36-47f3-bcff-6f2a3cd23481", "slug": "faqs-questions", "sticky": false},
+        {"guid": "d03d0cb8-a122-48cf-8000-23655a6e74dd", "slug": "faqs-hero", "sticky": false},
+        {"guid": "df5a50c2-7631-4313-9557-4ec529a86565", "slug": "faqs-cta", "sticky": false}
+    ],
+    "Page — FAQs — Questions": [
+        {"guid": "09529202-a96b-4333-823c-f2143363625f", "slug": "editorial-independence", "sticky": false},
+        {"guid": "cbae22ce-f068-4eba-8ebb-f5d805fae1fa", "slug": "how-long-a-factcheck-takes", "sticky": false},
+        {"guid": "b0e8ef6d-f19b-4b5b-9203-2256fa1f4e6a", "slug": "finding-factchecks", "sticky": false},
+        {"guid": "4f7c92ce-2d73-455b-b02b-6c5ff01f43d1", "slug": "corrections-policy", "sticky": false},
+        {"guid": "d9197684-8a68-4a01-b69b-645fc6498db3", "slug": "who-funds-us", "sticky": false},
+        {"guid": "6fbf8a13-303f-4356-b537-196149daa07c", "slug": "republishing", "sticky": false},
+        {"guid": "5c2885c0-aaea-416d-a1b2-e60c29fbfbf6", "slug": "how-to-submit-a-claim", "sticky": false},
+        {"guid": "b6c91c1c-97d9-4087-91e5-1683957e8837", "slug": "how-we-choose-claims", "sticky": false},
+        {"guid": "a5b0eae3-ac8d-47bd-9221-1b48bd0885b3", "slug": "languages-we-publish-in", "sticky": false},
+        {"guid": "d81a9948-c709-474a-954f-81d6d6cecd89", "slug": "what-verdicts-mean", "sticky": false}
+    ],
+    "Page — Funding": [
+        {"guid": "333a2971-0468-45b5-98c3-eef985af2910", "slug": "funding-our-income", "sticky": false},
+        {"guid": "e24b1996-0464-4051-8e21-d98a7b803649", "slug": "fundin-how-we-are-funded", "sticky": false},
+        {"guid": "d44d8c21-2a3b-4b91-9a35-a8ac66f4dd56", "slug": "funding-editorial-independence", "sticky": false},
+        {"guid": "ddca303b-22e6-415d-b81e-332d1b0eacae", "slug": "funding-hero", "sticky": false}
+    ],
+    "Page — Imprint": [
+        {"guid": "2446d4e4-6579-4563-8237-0f062be72cb2", "slug": "imprint-hero", "sticky": false},
+        {"guid": "31212306-4df7-4ed8-bd69-0bd3a710489f", "slug": "imprint-sections", "sticky": false}
+    ],
+    "Page — Imprint — Sections": [
+        {"guid": "4cbaedce-8fbf-4ace-8bee-fd58907aed58", "slug": "imprint-owner-of-the-website", "sticky": false},
+        {"guid": "f7eb2ef1-420e-4ada-b72a-a029db0168be", "slug": "imprint-registered-business-address", "sticky": false},
+        {"guid": "d478e8fb-6e07-40b7-8ee4-c523099d119e", "slug": "imprint-contact-information", "sticky": false},
+        {"guid": "0ea599c6-73f5-4f80-8adb-cc1dd246fb5a", "slug": "imprint-company-registration-numbers", "sticky": false}
+    ],
+    "Page — Knowledge": [
+        {"guid": "89b7310e-7247-4cfc-bafd-b3495a07436b", "slug": "knowledge-hero", "sticky": false},
+        {"guid": "7f888ac9-9cf5-4310-a7bd-3df018ecfca9", "slug": "incubator", "sticky": false},
+        {"guid": "d6b2f8c8-6b36-460c-9409-647e459a4a2d", "slug": "mentorships", "sticky": false},
+        {"guid": "18c2f8f4-3481-47e1-a414-538f87fef87f", "slug": "training", "sticky": false}
+    ],
+    "Page — Media Centre": [
+        {"guid": "c63d3aa1-e6d1-4438-a770-19efac8e3276", "slug": "media-centre-hero", "sticky": false},
+        {"guid": "ad6991bc-e96b-4a29-ac7b-fbee4e022e0c", "slug": "media-centre-research", "sticky": false},
+        {"guid": "26d7f69e-b7cf-472a-9be1-7cc922957030", "slug": "media-centre-news", "sticky": false},
+        {"guid": "36d795cb-052b-41be-a454-9247712be8bc", "slug": "media-centre-announcements", "sticky": false},
+        {"guid": "c75a0aae-de0e-4036-b456-0a6c486b5f7b", "slug": "media-centre-events", "sticky": false}
+    ],
+    "Page — Media Centre — Announcements": [
+        {"guid": "d0c76a4a-6909-4076-9956-85f87be3c3c8", "slug": "2026-cohort-application", "sticky": false},
+        {"guid": "910e5a8b-521c-487e-8f5c-e3f2f7cec223", "slug": "fact-check", "sticky": false},
+        {"guid": "ac0104a4-34c3-417c-a5b6-e1b0cbf5c773", "slug": "verification-desk", "sticky": false},
+        {"guid": "56799f09-b7f4-42d8-ade8-190787782042", "slug": "rating-scale-correction", "sticky": false}
+    ],
+    "Page — Media Centre — In Research": [
+        {"guid": "3bcd9afc-6139-49a1-ad50-58d64815cedb", "slug": "regulatory-submissions", "sticky": false},
+        {"guid": "ffe34173-62bd-4dac-abd2-0f149acfb658", "slug": "elog", "sticky": false},
+        {"guid": "bfeafe37-9217-4168-81ee-ba786261a7a7", "slug": "conference-proceedings", "sticky": false},
+        {"guid": "7c82beee-3e6f-4bdb-964e-296591b0b7c4", "slug": "multilateral-bodies", "sticky": false},
+        {"guid": "8d62a9e0-6e63-4d0d-82a2-0bd3bd4cc8e7", "slug": "university-centres", "sticky": false},
+        {"guid": "8a4f751f-f2cb-4b3e-921c-b0465fcf7d2f", "slug": "peer-reviewed-journal", "sticky": false}
+    ],
+    "Page — Media Centre — Spotlight": [
+        {"guid": "a4541056-2a72-4265-a51c-e7a88a3efd60", "slug": "public-finance-data-for-fact-checkers", "sticky": false},
+        {"guid": "c10dcb4f-0774-4f58-b399-41cdd96a0afc", "slug": "elecction-verification", "sticky": false},
+        {"guid": "0a8dc877-82a0-44e5-b11f-5921de191fc2", "slug": "am-swa", "sticky": false},
+        {"guid": "48cd006c-fe21-44d8-b6a3-206c0910b154", "slug": "africa-fact-checking-summit", "sticky": false}
+    ],
+    "Page — Methodology": [
+        {"guid": "84e348cc-c2df-4e73-adaa-e49e5fae71fa", "slug": "methodology-hero", "sticky": false},
+        {"guid": "19a6d1e8-f36c-4f86-add2-6f1ee19d6b90", "slug": "who-we-are-fzjem4fk", "sticky": false},
+        {"guid": "d7f795de-7ee2-4f66-b604-bd3fde555e17", "slug": "take-down-requests", "sticky": false},
+        {"guid": "89675449-d241-45e7-bf75-3c544a9e9761", "slug": "our-researchers", "sticky": false},
+        {"guid": "e8263398-00b8-4849-9488-2b20ae5fcf03", "slug": "our-sources", "sticky": false},
+        {"guid": "ba975237-ca4a-4953-a8a2-aa66fd6dee4e", "slug": "identifying-claims", "sticky": false},
+        {"guid": "70ff0c92-bed6-40ff-b57e-bd3e1e84c2f7", "slug": "fact-checking-guidelines", "sticky": false},
+        {"guid": "eef7a339-1fea-4815-b95a-0e1bf167cc5e", "slug": "final-editing-checklist", "sticky": false},
+        {"guid": "a075a548-9c77-408d-bed1-c27d49cf1b5d", "slug": "social-media-policy", "sticky": false},
+        {"guid": "cc1c406b-c7ba-4cff-947b-b1fd28e813a3", "slug": "corrections-policy-8i2mu8l4", "sticky": false},
+        {"guid": "e6b89325-9343-4d28-9276-ea9b4f482cc7", "slug": "structure-and-process", "sticky": false},
+        {"guid": "e87f0996-9ccc-450c-bdb6-7fbf4e8897d0", "slug": "right-of-reply-oxozal43", "sticky": false},
+        {"guid": "cc793b71-8189-4b51-a556-0dd1553ceebc", "slug": "attribution", "sticky": false}
+    ],
+    "Page — Our Ecosystem": [
+        {"guid": "4786322d-567c-4613-81e7-a0a988b1592d", "slug": "ecosystem-hero-y5vv3jai", "sticky": false},
+        {"guid": "1e508a24-9589-440e-b1b1-221cb2dea5e9", "slug": "ecosystem-groups", "sticky": false},
+        {"guid": "2fc51cea-2013-4e5e-b9ea-fb29474cafd4", "slug": "ecosystem-roles", "sticky": false}
+    ],
+    "Page — Our Ecosystem — Partners": [
+        {"guid": "71063193-10e4-4b22-92af-395505aa01bd", "slug": "code-for-africa", "sticky": false},
+        {"guid": "875354d5-d371-4cd8-b809-a2ea8fe6108e", "slug": "ancir", "sticky": false},
+        {"guid": "f0d2a068-2777-4a03-b849-50f3acd15dcd", "slug": "aria", "sticky": false},
+        {"guid": "953a5702-8fc4-4697-a31a-495019d43889", "slug": "afca", "sticky": false},
+        {"guid": "9514adac-83c3-4fd5-854e-60f29dd9f1b7", "slug": "africa-facts", "sticky": false},
+        {"guid": "8d4fcc04-6c0b-41af-8242-532b7e8156aa", "slug": "ifcn", "sticky": false}
+    ],
+    "Page — Our Ecosystem — Roles": [
+        {"guid": "60e6610d-bcfd-4fb0-a417-93845b46fb9d", "slug": "we-convene", "sticky": false},
+        {"guid": "a9e4e4d3-359b-492b-9469-8901457a8743", "slug": "we-build-tools", "sticky": false},
+        {"guid": "6cbc3036-42f2-47b8-a6ac-d4bad6802fd8", "slug": "we-train", "sticky": false}
+    ],
+    "Page — Partners": [
+        {"guid": "ce7d1940-2dd0-4cf2-98cb-152a79a70057", "slug": "partners-hero", "sticky": false},
+        {"guid": "c5b2d55a-1c27-4497-955f-26eee8790ba2", "slug": "partners-wall", "sticky": false},
+        {"guid": "5ee537c8-abc8-4ebd-81fa-0e7f1c9989eb", "slug": "partners-allies", "sticky": false}
+    ],
+    "Page — Partners — Allies": [
+        {"guid": "d4265e7e-32db-4532-bdfd-46471ef00af4", "slug": "ally-ancir-ilab", "sticky": false},
+        {"guid": "6e96ff54-3509-4af2-87e4-c8f43e5ea34a", "slug": "ally-academy-africa", "sticky": false},
+        {"guid": "065813a1-089a-4a8d-ae17-00409e2614f4", "slug": "ally-takwimu", "sticky": false},
+        {"guid": "24e4d8cc-c8ec-4578-bfe0-7012a4fe8c75", "slug": "ally-civic-signal", "sticky": false}
+    ],
+    "Page — Partners — Partners": [
+        {"guid": "b54c2fce-95bc-46ec-93bc-bba0fa4fa323", "slug": "partner-tiktok", "sticky": false},
+        {"guid": "9b5fa69f-92ef-46d9-b826-f3745e8814d8", "slug": "partner-united-nations", "sticky": false},
+        {"guid": "a3ea77eb-ac58-4d7d-acbc-eeae6fb04336", "slug": "partner-meta", "sticky": false},
+        {"guid": "caf41f06-7d90-4559-b57e-e01ef03c1b52", "slug": "partner-deutsche-welle", "sticky": false}
+    ],
+    "Page — Principles": [
+        {"guid": "65a4adfb-3526-4e85-97b9-60d265a5db4e", "slug": "principles-hero", "sticky": false},
+        {"guid": "5d0f6519-53ef-48ce-a187-a4ffe95ad755", "slug": "who-we-are", "sticky": false},
+        {"guid": "e19299c3-41fa-4676-a3b5-83373ad88ebf", "slug": "our-mission", "sticky": false},
+        {"guid": "44ecf629-e4d4-445f-940d-73ef674847a1", "slug": "transparency-of-sources-we4nirbj", "sticky": false},
+        {"guid": "34691081-3b34-48e7-8fdb-d38ae2e9b347", "slug": "non-partisanship-6ga1xys3", "sticky": false},
+        {"guid": "57540efa-8fd3-4112-9f6b-53460701a83e", "slug": "digital-platforms", "sticky": false},
+        {"guid": "e6bc5d31-58e6-4879-802e-3d66b937f4a1", "slug": "international-standards", "sticky": false},
+        {"guid": "5dabad77-27ef-479b-9eae-71014b766bc3", "slug": "mistakes-and-corrections", "sticky": false}
+    ],
+    "Page — Privacy Policy": [
+        {"guid": "3808bc2b-066d-4b4a-b21c-b1e68a76c96a", "slug": "privacy-sections", "sticky": false},
+        {"guid": "e5c48ba4-4395-4c8d-b49e-9c70ef6da647", "slug": "privacy-hero", "sticky": false}
+    ],
+    "Page — Privacy Policy — Sections": [
+        {"guid": "cfbb4e33-86e5-48a0-b7d6-5808c9ba4d21", "slug": "privacy-definitions", "sticky": false},
+        {"guid": "0ba5ff3a-2806-4d7f-8a37-c20fa639be94", "slug": "privacy-principles-for-processing", "sticky": false},
+        {"guid": "dd5ff243-c0ec-4249-9805-f082c6e01ead", "slug": "privacy-what-data-we-collect", "sticky": false},
+        {"guid": "473d2769-429d-48f8-bc30-cfdc7e9d272c", "slug": "privacy-how-we-collect-your-data", "sticky": false},
+        {"guid": "ba1920c0-92ad-43e6-96af-631be0e51ebc", "slug": "privacy-how-we-use-your-data", "sticky": false},
+        {"guid": "29546921-05f5-49bf-afcd-344892a003ef", "slug": "privacy-legal-basis", "sticky": false},
+        {"guid": "2861d91b-cef5-47de-90b4-d7f4868ce033", "slug": "privacy-retention", "sticky": false},
+        {"guid": "b1692e47-5e31-43d1-992a-716bdb74d24f", "slug": "privacy-marketing", "sticky": false},
+        {"guid": "5c288a9e-72aa-46f2-b8ed-bb6290097bc7", "slug": "privacy-data-protection-rights", "sticky": false},
+        {"guid": "cf6fe78c-298d-4801-8d7d-7c0986a44dfa", "slug": "privacy-what-are-cookies", "sticky": false},
+        {"guid": "a107ea98-4d41-4f5f-89c7-3b3a24204732", "slug": "privacy-how-we-use-cookies", "sticky": false},
+        {"guid": "69a17264-ff0b-4e51-8d30-c840c90e47a0", "slug": "privacy-types-of-cookies", "sticky": false},
+        {"guid": "7a4f1cf9-1dd0-433a-a069-c36259692e9e", "slug": "privacy-how-to-manage-cookies", "sticky": false},
+        {"guid": "dffc6b12-0085-4593-a015-cded87439134", "slug": "privacy-how-to-contact-us", "sticky": false}
+    ],
+    "Page — Tools": [
+        {"guid": "eaa73441-d5f9-4400-ab21-7c50f024fdc2", "slug": "tools-hero", "sticky": false},
+        {"guid": "81da951a-d902-41bf-9d68-cd2dbe8fe370", "slug": "tools-showcase", "sticky": false}
+    ],
+    "Page — Tools — Tools": [
+        {"guid": "00a343cf-adac-4fa6-8c68-3b212c71a24b", "slug": "tool-pesayetu", "sticky": false},
+        {"guid": "d66c7776-d6d7-43ce-bdf6-39f48ff1449d", "slug": "tool-promise-tracker", "sticky": false},
+        {"guid": "94ce1d3d-3fd0-446d-9cec-9db7ef4a66aa", "slug": "tool-tax-clock", "sticky": false},
+        {"guid": "8f3efcbf-01dd-418e-8aa3-8c879fe66fd4", "slug": "tool-biscuit-index", "sticky": false}
+    ]
+}

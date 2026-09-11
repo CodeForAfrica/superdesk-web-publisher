@@ -46,10 +46,17 @@ from pathlib import Path
 # `probe-delete-me` is a staging probe leftover.
 CONTENT_LIST_NAME_DENYLIST = {"probe-delete-me"}
 
-# Homepage lists get random-filled by seed-content-lists.sh; everything else is
-# created empty for editors to curate (About/Media Centre editorial collections).
-# A derived default only — override `seed` by hand in the tracked file if needed.
+# Homepage lists get random-filled by seed-content-lists.sh with fresh fact-checks;
+# everything else is created empty for editors to curate (About/Media Centre
+# editorial collections). "Media Centre — In the News" is also fact-check-driven,
+# not authored, so it is random-filled too. A random-fill list's membership is
+# runtime, so it is NOT captured into content_list_items.json on a refresh.
 RANDOM_FILL_PREFIX = "Homepage"
+RANDOM_FILL_NAMES = {"Page — Media Centre — In the News"}
+
+
+def is_random_fill(name):
+    return name.startswith(RANDOM_FILL_PREFIX) or name in RANDOM_FILL_NAMES
 
 # Settings scopes that are runtime per-user state, never tracked.
 SETTINGS_SCOPE_DENYLIST = {"user"}
@@ -229,7 +236,29 @@ def convert_routes(rows):
         if r.get("description"):
             doc["description"] = r["description"]
         out.append(doc)
-    return out
+    # The loader creates routes in array order and resolves `parent` by name in
+    # the same pass, so a parent MUST precede its children or the child lands
+    # parentless. Staging's position order interleaves them, so re-order into a
+    # stable topological order (roots first, then each level) here.
+    return _order_parents_first(out)
+
+
+def _order_parents_first(routes):
+    by_name = {r["name"]: r for r in routes}
+    ordered, placed = [], set()
+
+    def place(r):
+        if r["name"] in placed:
+            return
+        parent = r.get("parent")
+        if parent and parent in by_name and parent not in placed:
+            place(by_name[parent])
+        placed.add(r["name"])
+        ordered.append(r)
+
+    for r in routes:  # preserve original order among siblings
+        place(r)
+    return ordered
 
 
 def convert_rules(rows, route_id_to_name, summary):
@@ -312,7 +341,7 @@ def convert_content_lists(rows, summary):
         doc = {
             "name": name,
             "type": r["type"],
-            "seed": "random" if name.startswith(RANDOM_FILL_PREFIX) else "empty",
+            "seed": "random" if is_random_fill(name) else "empty",
         }
         if r.get("description"):
             doc["description"] = r["description"]
@@ -324,6 +353,28 @@ def convert_content_lists(rows, summary):
             doc["filters"] = filters
         out.append(doc)
     return out
+
+
+def convert_membership(rows, summary):
+    """Group the curated-list membership projection into an ordered map keyed by
+    list name. content_id is never tracked — only the stable article GUID
+    (swp_article.code). The seeder resolves guid -> local article id at seed time.
+    Test-artifact lists are dropped (same denylist as the list definitions).
+    Random-fill lists (homepage, In the News) have runtime membership seeded from
+    fresh fact-checks, so their contents are never captured here."""
+    by_list = {}
+    for r in sorted(rows, key=lambda r: (r["list"], r.get("position") or 0)):
+        name = r["list"]
+        if name in CONTENT_LIST_NAME_DENYLIST or is_random_fill(name):
+            continue
+        by_list.setdefault(name, []).append({
+            "guid": r["guid"],
+            "slug": r.get("slug"),
+            "sticky": bool(r.get("sticky")),
+        })
+    summary["membership_lists"] = len(by_list)
+    summary["membership_items"] = sum(len(v) for v in by_list.values())
+    return by_list
 
 
 def convert_settings(rows, summary):
@@ -348,7 +399,8 @@ def convert_settings(rows, summary):
 # Latent config tables: dumped for capture, written only if non-empty. Faithful
 # passthrough (serialized columns left as-is until one actually has data to shape).
 LATENT_TABLES = {
-    "swp_webhook": "webhooks.json",
+    # swp_webhook is intentionally NOT here: the revalidate webhook embeds a
+    # shared secret in its URL, so it is excluded from the dump (see dump.sh).
     "swp_output_channel": "output_channels.json",
     "swp_fbia_feed": "fbia_feeds.json",
     "swp_fbia_page": "fbia_pages.json",
@@ -384,6 +436,10 @@ def main(argv=None):
     write_json(dest / "menus.json", convert_menus(menus, route_id_to_name)); summary["written"].append("menus")
     write_json(dest / "content_lists.json", convert_content_lists(lists, summary)); summary["written"].append("content_lists")
     write_json(dest / "settings.json", convert_settings(settings, summary)); summary["written"].append("settings")
+
+    membership = load_table(src, "content_list_membership")
+    write_json(dest / "content_list_items.json", convert_membership(membership, summary))
+    summary["written"].append("content_list_items")
 
     for table, filename in LATENT_TABLES.items():
         rows = load_table(src, table)
