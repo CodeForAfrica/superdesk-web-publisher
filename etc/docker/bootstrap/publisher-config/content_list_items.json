@@ -33,7 +33,7 @@
         {"guid": "e5ae3396-0bed-408b-b34a-a5a884a5eafc", "slug": "contact-fact-check", "sticky": false}
     ],
     "Page — Contact Us — Locations": [
-        {"guid": "33c76b98-9164-4022-b7c1-465f2d8e0fb3", "slug": "contact-office-benin", "sticky": false},
+        {"guid": "e1cdf253-3aa4-4cf0-957d-9a895ecfec28", "slug": "contact-office-benin", "sticky": false},
         {"guid": "1d5dc559-e19b-439b-b2a3-2d372271171f", "slug": "contact-office-burkina-faso", "sticky": false},
         {"guid": "cee03d86-95f9-4818-b9d4-1f517358e528", "slug": "contact-office-burundi", "sticky": false},
         {"guid": "ab5dd457-698c-4e0b-a34c-118306e12912", "slug": "contact-office-cameroon", "sticky": false},
@@ -61,8 +61,8 @@
         {"guid": "df5a50c2-7631-4313-9557-4ec529a86565", "slug": "faqs-cta", "sticky": false}
     ],
     "Page — FAQs — Questions": [
-        {"guid": "09529202-a96b-4333-823c-f2143363625f", "slug": "editorial-independence", "sticky": false},
-        {"guid": "cbae22ce-f068-4eba-8ebb-f5d805fae1fa", "slug": "how-long-a-factcheck-takes", "sticky": false},
+        {"guid": "d712e66e-a629-4685-bf99-70606d7816bb", "slug": "editorial-independence", "sticky": false},
+        {"guid": "255fa137-a90b-4eeb-b509-1dc6941ac331", "slug": "how-long-a-factcheck-takes", "sticky": false},
         {"guid": "b0e8ef6d-f19b-4b5b-9203-2256fa1f4e6a", "slug": "finding-factchecks", "sticky": false},
         {"guid": "4f7c92ce-2d73-455b-b02b-6c5ff01f43d1", "slug": "corrections-policy", "sticky": false},
         {"guid": "d9197684-8a68-4a01-b69b-645fc6498db3", "slug": "who-funds-us", "sticky": false},
@@ -90,7 +90,7 @@
     ],
     "Page — Knowledge": [
         {"guid": "89b7310e-7247-4cfc-bafd-b3495a07436b", "slug": "knowledge-hero", "sticky": false},
-        {"guid": "7f888ac9-9cf5-4310-a7bd-3df018ecfca9", "slug": "incubator", "sticky": false},
+        {"guid": "ebf55055-0357-4524-b359-6618bbd49cfb", "slug": "incubator", "sticky": false},
         {"guid": "d6b2f8c8-6b36-460c-9409-647e459a4a2d", "slug": "mentorships", "sticky": false},
         {"guid": "18c2f8f4-3481-47e1-a414-538f87fef87f", "slug": "training", "sticky": false}
     ],
@@ -108,7 +108,7 @@
         {"guid": "56799f09-b7f4-42d8-ade8-190787782042", "slug": "rating-scale-correction", "sticky": false}
     ],
     "Page — Media Centre — In Research": [
-        {"guid": "3bcd9afc-6139-49a1-ad50-58d64815cedb", "slug": "regulatory-submissions", "sticky": false},
+        {"guid": "7bb8f6dd-e041-4f80-a332-97119b64217b", "slug": "regulatory-submissions", "sticky": false},
         {"guid": "ffe34173-62bd-4dac-abd2-0f149acfb658", "slug": "elog", "sticky": false},
         {"guid": "bfeafe37-9217-4168-81ee-ba786261a7a7", "slug": "conference-proceedings", "sticky": false},
         {"guid": "7c82beee-3e6f-4bdb-964e-296591b0b7c4", "slug": "multilateral-bodies", "sticky": false},
@@ -166,10 +166,10 @@
         {"guid": "24e4d8cc-c8ec-4578-bfe0-7012a4fe8c75", "slug": "ally-civic-signal", "sticky": false}
     ],
     "Page — Partners — Partners": [
-        {"guid": "b54c2fce-95bc-46ec-93bc-bba0fa4fa323", "slug": "partner-tiktok", "sticky": false},
-        {"guid": "9b5fa69f-92ef-46d9-b826-f3745e8814d8", "slug": "partner-united-nations", "sticky": false},
+        {"guid": "caf41f06-7d90-4559-b57e-e01ef03c1b52", "slug": "partner-deutsche-welle", "sticky": false},
         {"guid": "a3ea77eb-ac58-4d7d-acbc-eeae6fb04336", "slug": "partner-meta", "sticky": false},
-        {"guid": "caf41f06-7d90-4559-b57e-e01ef03c1b52", "slug": "partner-deutsche-welle", "sticky": false}
+        {"guid": "b54c2fce-95bc-46ec-93bc-bba0fa4fa323", "slug": "partner-tiktok", "sticky": false},
+        {"guid": "9b5fa69f-92ef-46d9-b826-f3745e8814d8", "slug": "partner-united-nations", "sticky": false}
     ],
     "Page — Principles": [
         {"guid": "65a4adfb-3526-4e85-97b9-60d265a5db4e", "slug": "principles-hero", "sticky": false},
@@ -202,7 +202,7 @@
         {"guid": "dffc6b12-0085-4593-a015-cded87439134", "slug": "privacy-how-to-contact-us", "sticky": false}
     ],
     "Page — Tools": [
-        {"guid": "eaa73441-d5f9-4400-ab21-7c50f024fdc2", "slug": "tools-hero", "sticky": false},
+        {"guid": "c8b69530-d2b0-49f0-867b-a8aa8501dbd5", "slug": "tools-hero", "sticky": true},
         {"guid": "81da951a-d902-41bf-9d68-cd2dbe8fe370", "slug": "tools-showcase", "sticky": false}
     ],
     "Page — Tools — Tools": [
