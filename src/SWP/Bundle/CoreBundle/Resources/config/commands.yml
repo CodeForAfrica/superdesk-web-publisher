@@ -34,6 +34,17 @@ services:
         tags:
             - { name: console.command }
 
+    SWP\Bundle\CoreBundle\Command\SeedContentListItemsCommand:
+        arguments:
+            - '@swp.repository.tenant'
+            - '@swp_multi_tenancy.tenant_context'
+            - '@swp.repository.content_list'
+            - '@swp.repository.content_list_item'
+            - '@swp.repository.article'
+            - '@swp.service.content_list'
+        tags:
+            - { name: console.command }
+
     SWP\Bundle\CoreBundle\Command\:
         resource: '../../Command/*'
-        exclude: '../../Command/{CreateUserCommand,ImportUserCommand,LoadTenantConfigCommand}.php'
+        exclude: '../../Command/{CreateUserCommand,ImportUserCommand,LoadTenantConfigCommand,SeedContentListItemsCommand}.php'

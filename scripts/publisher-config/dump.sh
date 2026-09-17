@@ -36,10 +36,13 @@ REGION="${REGION:-eu-west-1}"
 # volatile columns and resolves FKs, so the dump must keep ids/parent_id/route_id.
 #   reference     : tenant/org — captured for context; NOT seeded (env-driven).
 #   loaded        : route/rule/menu/content_list/settings — the loader seeds these.
-#   latent config : webhook/output_channel/fbia/apple_news/redirect_route — empty
-#                   today, dumped so the first admin change is caught on refresh.
+#   latent config : output_channel/fbia/apple_news/redirect_route — empty today,
+#                   dumped so the first admin change is caught on refresh.
+# swp_webhook is deliberately EXCLUDED: the pesacheck-ui revalidate webhook
+# embeds a shared secret in its URL (?secret=...), which must never enter a
+# tracked file (AGENTS.md §4). Seed it separately with the secret from env/SSM.
 TABLES="swp_organization swp_tenant swp_route swp_rule swp_menu swp_content_list \
-swp_settings swp_webhook swp_output_channel swp_fbia_feed swp_fbia_page \
+swp_settings swp_output_channel swp_fbia_feed swp_fbia_page \
 swp_apple_news_config swp_redirect_route"
 
 log() { printf '>> %s\n' "$*" >&2; }
@@ -63,6 +66,20 @@ for t in ${TABLES}; do
     > "\$PKG/publisher-config/${subdir}/\$t.json" 2>/dev/null \
     || echo '[]' > "\$PKG/publisher-config/${subdir}/\$t.json"
 done
+# Curated content-list membership, projected to the STABLE article GUID
+# (swp_article.code) — never the per-instance content_id. Homepage lists are
+# excluded (they are random-filled, not tracked). This is the only place
+# swp_content_list_item is read; the raw table stays deny-listed.
+psql -U "\$PGUSER" -d "\$PGDB" -tAc \
+  "SELECT COALESCE(json_agg(row_to_json(m) ORDER BY m.list, m.position), '[]'::json) FROM (
+     SELECT cl.name AS list, i.position, i.sticky, a.code AS guid, a.slug
+     FROM swp_content_list cl
+     JOIN swp_content_list_item i ON i.content_list_id = cl.id AND i.deleted_at IS NULL
+     JOIN swp_article a ON a.id = i.content_id
+     WHERE cl.name NOT LIKE 'Homepage%'
+   ) m" \
+  > "\$PKG/publisher-config/${subdir}/content_list_membership.json" 2>/dev/null \
+  || echo '[]' > "\$PKG/publisher-config/${subdir}/content_list_membership.json"
 tar czf /tmp/publisher-config.tgz -C "\$PKG" publisher-config
 rm -rf "\$OUT" "\$PKG"
 EOF

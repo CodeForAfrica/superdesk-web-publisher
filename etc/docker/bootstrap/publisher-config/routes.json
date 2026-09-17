@@ -1,9 +1,20 @@
 [
     {"name": "English", "parent": null, "slug": "english", "type": "collection"},
+    {"name": "About", "parent": null, "slug": "about", "type": "content"},
+    {"name": "Principles", "parent": "About", "slug": "principles", "type": "content"},
     {"name": "French", "parent": null, "slug": "french", "type": "collection"},
+    {"name": "Methodology", "parent": "About", "slug": "methodology", "type": "content"},
     {"name": "Somali", "parent": null, "slug": "somali", "type": "collection"},
+    {"name": "Funding", "parent": "About", "slug": "funding", "type": "content"},
     {"name": "Kiswahili", "parent": null, "slug": "kiswahili", "type": "collection"},
+    {"name": "FAQs", "parent": "About", "slug": "faqs", "type": "content"},
     {"name": "Amharic", "parent": null, "slug": "amharic", "type": "collection"},
+    {"name": "Our Ecosystem", "parent": "About", "slug": "our-ecosystem", "type": "content"},
     {"name": "Afaan Oromo", "parent": null, "slug": "afaan-oromo", "type": "collection"},
-    {"name": "Knowledge", "parent": null, "slug": "knowledge", "type": "content"}
+    {"name": "Partners", "parent": "About", "slug": "partners", "type": "content"},
+    {"name": "Knowledge", "parent": null, "slug": "knowledge", "type": "content"},
+    {"name": "Media Centre", "parent": "About", "slug": "media-centre", "type": "content"},
+    {"name": "Contact Us", "parent": "About", "slug": "contact-us", "type": "content"},
+    {"name": "Tools", "parent": null, "slug": "tools", "type": "content"},
+    {"name": "Privacy Policy", "parent": null, "slug": "privacy-policy", "type": "content"}
 ]
