@@ -1,3 +1,4 @@
+# Build the runtime on pinned PHP 8.3.36; linux-headers supplies linux/sock_diag.h needed by the sockets extension. This is the separate websocket/supervisor runtime, which must be upgraded alongside PHP-FPM.
 # Production websocket image for Superdesk Web Publisher.
 #
 # Runs the GoS websocket server under supervisord. It boots the full Symfony
@@ -5,7 +6,7 @@
 # the php-fpm image. Build context is the REPOSITORY ROOT:
 #
 #   docker build -f etc/docker/supervisor/Dockerfile.prod -t <image> .
-FROM php:8.0-fpm-alpine
+FROM php:8.3.36-fpm-alpine@sha256:81cb692948e6de4275f7e107c50a34e963a440660f2c5b8502d11071f7d30338
 
 # Same extension set as the php-fpm prod image (the kernel needs intl/gd/etc. to
 # boot), plus supervisor to run the long-lived websocket process.
@@ -16,7 +17,7 @@ RUN set -ex \
         freetype libpng libjpeg-turbo \
         freetype-dev libpng-dev libjpeg-turbo-dev \
         libintl icu icu-dev git \
-        libmemcached-dev autoconf build-base \
+        libmemcached-dev autoconf build-base linux-headers \
         rabbitmq-c-dev libzip-dev zip oniguruma-dev libwebp-dev \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
