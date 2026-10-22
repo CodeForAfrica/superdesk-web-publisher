@@ -1,3 +1,4 @@
+# Run the existing regression matrix on PHP 8.3.36; AMQP 1.11.0 preserves the boolean ack/nack contract required by the installed Symfony Messenger.
 name: CI
 
 on:

@@ -1,3 +1,5 @@
+# Composer JSON/lock changes: six production packages reject PHP 8.3, php-parser follows their constraints, and Phpspec/Prophecy are updated for development on the same runtime. No broad Symfony update is included.
+# Build the runtime on pinned PHP 8.3.36; linux-headers supplies linux/sock_diag.h needed by the sockets extension. Preserve deployed app/configuration and bootstrap scripts; update composer.json/lock only for PHP 8.3-compatible dependencies. Web/worker require AMQP 1.11.0 boolean ack/nack; websocket retains its existing AMQP 2.2.0.
 FROM php:8.3.36-fpm-alpine@sha256:81cb692948e6de4275f7e107c50a34e963a440660f2c5b8502d11071f7d30338 AS runtime
 RUN apk --no-cache add \
         postgresql-dev zlib-dev libxml2-dev curl-dev \

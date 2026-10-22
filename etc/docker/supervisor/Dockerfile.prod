@@ -1,3 +1,4 @@
+# Build the runtime on pinned PHP 8.3.36; linux-headers supplies linux/sock_diag.h needed by the sockets extension. This is the separate websocket/supervisor runtime, which must be upgraded alongside PHP-FPM.
 # Production websocket image for Superdesk Web Publisher.
 #
 # Runs the GoS websocket server under supervisord. It boots the full Symfony

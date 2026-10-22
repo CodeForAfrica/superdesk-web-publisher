@@ -1,3 +1,4 @@
+# Build the runtime on pinned PHP 8.3.36; linux-headers supplies linux/sock_diag.h needed by the sockets extension.
 # Production PHP-FPM image for Superdesk Web Publisher.
 #
 # Build context is the REPOSITORY ROOT (not etc/docker/php8-fpm) so the
