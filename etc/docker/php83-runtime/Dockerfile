@@ -21,11 +21,10 @@ RUN pecl install amqp-1.11.0 && docker-php-ext-enable amqp
 COPY --from=deployed_php /var/www/publisher/ /var/www/publisher/
 COPY --from=deployed_php /usr/bin/composer /usr/bin/composer
 COPY --from=deployed_php /usr/local/etc/php/conf.d/zz-production.ini /usr/local/etc/php/conf.d/zz-production.ini
-COPY --from=deployed_php /usr/local/bin/bootstrap-publisher.sh /usr/local/bin/bootstrap-publisher.sh
-COPY --from=deployed_php /usr/local/bin/seed-content-lists.sh /usr/local/bin/seed-content-lists.sh
-COPY --from=deployed_php /usr/local/bin/content-lists.sh /usr/local/bin/content-lists.sh
-COPY --from=deployed_php /usr/local/bin/bootstrap-hasura.sh /usr/local/bin/bootstrap-hasura.sh
-COPY --from=deployed_php /usr/local/share/hasura/ /usr/local/share/hasura/
+RUN --mount=from=deployed_php,source=/usr/local/bin,target=/deployed-bin \
+    --mount=from=deployed_php,source=/usr/local/share,target=/deployed-share \
+    for file in /deployed-bin/*.sh; do [ ! -f "$file" ] || cp -p "$file" /usr/local/bin/; done; \
+    if [ -d /deployed-share/hasura ]; then cp -a /deployed-share/hasura /usr/local/share/; fi
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --classmap-authoritative --no-scripts --prefer-dist --no-progress \
     && rm -rf var/cache/* \
