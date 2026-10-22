@@ -9,7 +9,7 @@
 # production Composer dependencies are baked in (no runtime bind mount), xdebug
 # and display_errors are gone, opcache is tuned for immutable code, and the PHP
 # upload limits match Superdesk's media push size.
-FROM php:8.0-fpm-alpine
+FROM php:8.3.36-fpm-alpine@sha256:81cb692948e6de4275f7e107c50a34e963a440660f2c5b8502d11071f7d30338
 
 # Runtime + build extensions. Mirrors the dev image minus xdebug and the
 # interactive editors; keep this list in sync with the supervisor prod image,
@@ -20,7 +20,7 @@ RUN set -ex \
         freetype libpng libjpeg-turbo \
         freetype-dev libpng-dev libjpeg-turbo-dev \
         libintl icu icu-dev git \
-        libmemcached-dev autoconf build-base \
+        libmemcached-dev autoconf build-base linux-headers \
         rabbitmq-c-dev libzip-dev zip oniguruma-dev libwebp-dev \
         curl jq \
     && docker-php-ext-configure intl \
