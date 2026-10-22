@@ -1,52 +1,33 @@
-name: "Publish images"
-
+name: Publish staging PHP 8.3 images
 on:
-  release:
-    types: [published]
-  # Manual on-demand build/push without cutting a release. `tag` is the Docker
-  # tag to push (in addition to `latest`), e.g. a branch name or a test tag.
   workflow_dispatch:
     inputs:
       tag:
-        description: "Image tag to push (also tags latest)"
         required: true
-        default: "manual"
-
+        type: string
 permissions:
   contents: read
-
 jobs:
   publish:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - image: php
-            dockerfile: etc/docker/php8-fpm/Dockerfile.prod
-          - image: nginx
-            dockerfile: etc/docker/nginx/Dockerfile.prod
-          - image: websocket
-            dockerfile: etc/docker/supervisor/Dockerfile.prod
-
+        image: [php, websocket]
     steps:
-    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-    - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-    - name: Build and push
-      env:
-        IMAGE: codeforafrica/superdesk-web-publisher-${{ matrix.image }}
-        TAG: ${{ github.event.release.tag_name || inputs.tag }}
-      run: |
-        docker build \
-          --tag "$IMAGE:$TAG" \
-          --tag "$IMAGE:latest" \
-          --file "${{ matrix.dockerfile }}" \
-          .
-        docker push --all-tags "$IMAGE"
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Build, validate and publish staging tag only
+        env:
+          IMAGE: codeforafrica/superdesk-web-publisher-${{ matrix.image }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          docker build --platform linux/amd64 --target '${{ matrix.image }}' -f etc/docker/php83-runtime/Dockerfile -t "$IMAGE:$TAG" .
+          docker run --rm --network none --entrypoint php "$IMAGE:$TAG" -r 'if (PHP_VERSION !== "8.3.36") exit(1); echo PHP_VERSION, PHP_EOL;'
+          docker run --rm --network none --entrypoint php "$IMAGE:$TAG" /usr/bin/composer check-platform-reqs --lock --no-dev
+          docker run --rm --network none --entrypoint php "$IMAGE:$TAG" bin/console about --env=prod --no-debug
+          docker push "$IMAGE:$TAG"
