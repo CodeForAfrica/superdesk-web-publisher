@@ -1,3 +1,4 @@
+# Run the existing regression matrix on PHP 8.3.36; AMQP 1.11.0 preserves the boolean ack/nack contract required by the installed Symfony Messenger.
 name: CI
 
 on:
@@ -27,9 +28,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php: "8.0"
+          - php: "8.3.36"
             doctrine_cache_driver: memcached
-          - php: "8.0"
+          - php: "8.3.36"
             doctrine_cache_driver: array
 
     services:
@@ -84,7 +85,7 @@ jobs:
         uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2.37.2
         with:
           coverage: none
-          extensions: json,memcached,amqp,pdo_sqlite,pgsql,mbstring,xml,ctype,iconv,intl
+          extensions: json,memcached,amqp-1.11.0,pdo_sqlite,pgsql,mbstring,xml,ctype,iconv,intl
           ini-values: memory_limit=-1, post_max_size=100M, upload_max_filesize=100M
           php-version: ${{ matrix.php }}
           tools: pecl
